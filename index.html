@@ -1,0 +1,2450 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://stellular-rugelach-f54861.netlify.app/ -->
+<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Jurídica Profesional</title>
+    <link href="./Calculadora Jurídica Profesional_files/all.min.css" rel="stylesheet">
+    <link href="./Calculadora Jurídica Profesional_files/css2" rel="stylesheet">
+  <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            margin-right: 0.5rem;
+            filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #667eea;
+        }
+
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #667eea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            background-color: rgba(102, 126, 234, 0.1);
+        }
+
+        .cart-icon i {
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border: 2px solid white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .cart-emoji {
+            font-size: 1.2rem;
+            color: #667eea;
+        }
+
+        /* Fallback para cuando FontAwesome no carga */
+        .cart-icon.no-fontawesome .cart-emoji {
+            display: block !important;
+        }
+
+        .cart-icon.no-fontawesome i {
+            display: none;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 6rem 0;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* App Design Background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-text {
+            text-align: left;
+        }
+
+        .hero-app-preview {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .app-mockup {
+            position: relative;
+            width: 300px;
+            height: 600px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 30px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 8px rgba(255, 255, 255, 0.1),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .app-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .app-logo-large {
+            margin: 2rem 0;
+        }
+
+        .app-logo-large img {
+            height: 80px;
+            width: auto;
+            filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+        }
+
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .app-features {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            width: 100%;
+            padding: 0 1rem;
+        }
+
+        .app-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: #333;
+        }
+
+        .app-feature i {
+            color: #667eea;
+            width: 16px;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ffffff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .hero-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .hero-feature i {
+            color: #ffd700;
+            font-size: 1.3rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6);
+        }
+
+        /* Calculator Carousel */
+        .calculator-section {
+            background: white;
+            padding: 4rem 0;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        .calculator-carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scroll-behavior: smooth;
+        }
+
+        .calculator-card {
+            min-width: 300px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .calculator-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .calculator-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .calculator-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .calculator-description {
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+        }
+
+        .calculator-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+
+
+        .get-access-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+        }
+
+        .cart-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cart-total {
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-align: right;
+            margin-bottom: 2rem;
+        }
+
+        /* Payment Methods */
+        .payment-methods {
+            margin-top: 2rem;
+        }
+
+        .payment-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .payment-option.selected {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .payment-icon {
+            font-size: 1.5rem;
+        }
+
+        .yape { color: #00d4aa; }
+        .bank { color: #2c3e50; }
+
+        .checkout-button {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .checkout-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* App Description Section */
+        .app-description {
+            background: white;
+            padding: 4rem 0;
+            margin: 2rem 0;
+        }
+
+        .description-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .description-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: #333;
+        }
+
+        .description-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+
+        .app-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .description-image {
+            text-align: center;
+        }
+
+        .description-image img {
+            height: 200px;
+            width: auto;
+            opacity: 0.8;
+            filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8ecff 100%);
+            padding: 4rem 0;
+            margin: 2rem 0;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .pricing-card.featured {
+            border: 3px solid #667eea;
+            transform: scale(1.05);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .pricing-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .price {
+            margin-bottom: 1.5rem;
+        }
+
+        .currency {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .period {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .savings {
+            background: #e8f5e8;
+            color: #27ae60;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .pricing-features {
+            margin: 2rem 0;
+        }
+
+        .pricing-features ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: #666;
+        }
+
+        .pricing-features i {
+            color: #27ae60;
+            margin-right: 0.5rem;
+            width: 20px;
+        }
+
+        .pricing-button {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pricing-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .pricing-button.featured {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+        }
+
+        .pricing-button.featured:hover {
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-logo {
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 50px;
+            width: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            /* Header optimizado para móvil */
+            .header-container {
+                padding: 0 1rem;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+            }
+
+            .logo-text {
+                font-size: 1.4rem;
+            }
+
+            .logo img {
+                height: 30px;
+            }
+
+            nav ul {
+                gap: 0.8rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav a {
+                font-size: 0.9rem;
+                padding: 0.3rem 0.6rem;
+            }
+
+            .cart-icon {
+                font-size: 1rem;
+                margin-left: auto;
+                width: 35px;
+                height: 35px;
+            }
+
+            .cart-icon i {
+                font-size: 1rem;
+            }
+
+            .cart-emoji {
+                font-size: 1rem;
+            }
+
+            .cart-count {
+                width: 18px;
+                height: 18px;
+                font-size: 0.6rem;
+                top: -6px;
+                right: -6px;
+            }
+
+            /* Hero section optimizado */
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+                padding: 0 1rem;
+            }
+
+            .hero-text {
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-features {
+                gap: 0.8rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-feature {
+                font-size: 1rem;
+                gap: 0.8rem;
+            }
+
+            .hero-feature i {
+                font-size: 1.1rem;
+            }
+
+            .cta-button {
+                padding: 1rem 2rem;
+                font-size: 1.1rem;
+            }
+
+            /* App mockup optimizado */
+            .app-mockup {
+                width: 220px;
+                height: 440px;
+            }
+
+            .app-logo-large img {
+                height: 50px;
+            }
+
+            .app-title {
+                font-size: 1.1rem;
+            }
+
+            .app-subtitle {
+                font-size: 0.8rem;
+            }
+
+            .app-features {
+                gap: 0.5rem;
+                padding: 0 0.8rem;
+            }
+
+            .app-feature {
+                font-size: 0.7rem;
+                gap: 0.4rem;
+            }
+
+            .app-feature i {
+                width: 14px;
+            }
+
+            /* Calculator carousel optimizado */
+            .calculator-carousel {
+                gap: 1rem;
+                padding: 0.5rem 0;
+            }
+
+            .calculator-card {
+                min-width: 280px;
+                padding: 1.5rem;
+            }
+
+            .calculator-icon {
+                font-size: 2.5rem;
+            }
+
+            .calculator-title {
+                font-size: 1.2rem;
+            }
+
+            .calculator-description {
+                font-size: 0.9rem;
+            }
+
+            /* Description section optimizado */
+            .description-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .description-text h2 {
+                font-size: 1.8rem;
+            }
+
+            .description-text p {
+                font-size: 1rem;
+            }
+
+            .app-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.5rem;
+            }
+
+            /* Pricing cards optimizado */
+            .pricing-cards {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .pricing-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .pricing-card.featured {
+                transform: none;
+            }
+
+            .pricing-header h3 {
+                font-size: 1.3rem;
+            }
+
+            .amount {
+                font-size: 2.5rem;
+            }
+
+            .pricing-features li {
+                font-size: 0.9rem;
+                padding: 0.4rem 0;
+            }
+
+            /* Features section optimizado */
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .feature-icon {
+                font-size: 2rem;
+            }
+
+            .feature-title {
+                font-size: 1.2rem;
+            }
+
+            /* Calculators modal optimizado para móvil */
+            .calculators-content {
+                width: 95%;
+                max-width: none;
+                margin: 1rem;
+                padding: 1.5rem;
+                max-height: 90vh;
+            }
+
+            .calculators-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .calculator-item {
+                padding: 1.2rem;
+            }
+
+            .calculator-icon {
+                font-size: 2rem;
+            }
+
+            .calculator-item h4 {
+                font-size: 1.1rem;
+            }
+
+            .calculator-item p {
+                font-size: 0.8rem;
+            }
+
+            /* Cart modal optimizado para móvil */
+            .cart-content {
+                width: 95%;
+                max-width: none;
+                margin: 1rem;
+                padding: 1.5rem;
+                max-height: 90vh;
+            }
+
+            .cart-header h3 {
+                font-size: 1.2rem;
+            }
+
+            .cart-item {
+                padding: 0.8rem 0;
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-start;
+            }
+
+            .payment-options {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+            }
+
+            .payment-option {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            /* Footer responsive */
+            footer .container > div {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            /* Ajustes generales para móvil */
+            main {
+                margin-top: 70px;
+                padding: 1rem 0;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            /* Mejoras de espaciado */
+            .hero {
+                padding: 3rem 0;
+            }
+
+            .calculator-section,
+            .app-description,
+            .pricing-section,
+            .features {
+                padding: 2rem 0;
+                margin: 1rem 0;
+            }
+        }
+
+        /* Responsive para pantallas muy pequeñas */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .app-mockup {
+                width: 200px;
+                height: 400px;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .calculator-card {
+                min-width: 250px;
+                padding: 1.2rem;
+            }
+
+            .pricing-card {
+                padding: 1.5rem 1rem;
+            }
+
+            .cart-content {
+                margin: 0.5rem;
+                padding: 1rem;
+            }
+        }
+  </style>
+<style>
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        </style></head>
+<body cz-shortcut-listen="true">
+  <header>
+        <div class="header-container">
+            <a href="https://stellular-rugelach-f54861.netlify.app/#" class="logo">
+                <img src="./JurisCal.svg" alt="JurisCalc Logo">
+                <span class="logo-text">JurisCalc</span>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="calculadoras.html">Calculadoras</a></li>
+                    <li><a href="#caracteristicas">Características</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count" id="cartCount">1</span>
+                <!-- Fallback emoji si FontAwesome no carga -->
+                <span class="cart-emoji" style="display: none;">🛒</span>
+            </div>
+        </div>
+  </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="hero">
+            <div class="floating-elements">
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+                <div class="floating-element"></div>
+            </div>
+            
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>JurisCalc</h1>
+                    <p>La calculadora jurídica más completa y profesional del mercado. Diseñada específicamente para profesionales del derecho en Perú.</p>
+                    
+                    <div class="hero-features">
+                        <div class="hero-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Cálculos precisos según normativa vigente</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Resultados instantáneos y confiables</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-mobile-alt"></i>
+                            <span>Acceso desde cualquier dispositivo</span>
+                        </div>
+                    </div>
+                    
+                    <a class="cta-button" href="calculadoras.html">
+                        <i class="fas fa-calculator"></i>
+                        Ver Calculadoras
+                    </a>
+                </div>
+                
+                <div class="hero-app-preview">
+                    <div class="app-mockup">
+                        <div class="app-screen">
+                            <div class="app-header">
+                                JurisCalc
+                            </div>
+                            <div class="app-logo-large">
+                                <img src="./JurisCal.svg" alt="JurisCalc Logo">
+                            </div>
+                            <div class="app-title">Calculadora Jurídica</div>
+                            <div class="app-subtitle">Herramientas profesionales para cálculos legales</div>
+                            <div class="app-features">
+                                <div class="app-feature">
+                                    <i class="fas fa-gavel"></i>
+                                    <span>Sentencias de Pena</span>
+                                </div>
+                                <div class="app-feature">
+                                    <i class="fas fa-heart"></i>
+                                    <span>Pensión Alimenticia</span>
+                                </div>
+                                <div class="app-feature">
+                                    <i class="fas fa-coins"></i>
+                                    <span>Intereses Legales</span>
+                                </div>
+                                <div class="app-feature">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>Plazos Procesales</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- App Description Section -->
+        <section class="app-description">
+            <div class="container">
+                <div class="description-content">
+                    <div class="description-text">
+                        <h2>¿Qué es JurisCalc?</h2>
+                        <p>JurisCalc es la primera calculadora jurídica integral diseñada específicamente para profesionales del derecho en Perú. Nuestra aplicación revoluciona la forma en que los abogados, jueces, fiscales y estudiantes de derecho realizan sus cálculos legales.</p>
+                        
+                        <p>Con más de 15 años de experiencia en el sector legal, nuestro equipo ha desarrollado una herramienta que combina la precisión técnica con la facilidad de uso, permitiendo realizar cálculos complejos en segundos que antes requerían horas de trabajo manual.</p>
+                        
+                        <div class="app-stats">
+                            <div class="stat">
+                                <span class="stat-number">10,000+</span>
+                                <span class="stat-label">Usuarios Activos</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">50,000+</span>
+                                <span class="stat-label">Cálculos Realizados</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">99.9%</span>
+                                <span class="stat-label">Precisión</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-image">
+                        <img src="./JurisCal.svg" alt="JurisCalc Logo">
+                    </div>
+                </div>
+            </div>
+  </section>
+
+                    <!-- Pricing Section -->
+            <section id="calculadoras" class="pricing-section">
+                <div class="container">
+                    <h2 class="section-title">Planes de Acceso</h2>
+                    <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; color: #666;">
+                        Acceso completo a todas las calculadoras jurídicas por tiempo limitado
+                    </p>
+                
+                <div class="pricing-cards">
+                                            <div class="pricing-card">
+                            <div class="pricing-header">
+                                <h3>Acceso por 1 Mes</h3>
+                                <div class="price">
+                                    <span class="currency">S/</span>
+                                    <span class="amount">10</span>
+                                    <span class="period">pago único</span>
+                                </div>
+                            </div>
+                            <div class="pricing-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Acceso completo por 30 días</li>
+                                    <li><i class="fas fa-check"></i> Todas las calculadoras jurídicas</li>
+                                    <li><i class="fas fa-check"></i> Soporte técnico incluido</li>
+                                    <li><i class="fas fa-check"></i> Historial de cálculos</li>
+                                    <li><i class="fas fa-check"></i> Exportar resultados</li>
+                                    <li><i class="fas fa-info-circle"></i> Renovación manual al vencer</li>
+                                </ul>
+                            </div>
+                            <button class="pricing-button" onclick="addToCart('Acceso por 1 Mes', 10)">
+                                <i class="fas fa-credit-card"></i>
+                                Comprar Acceso
+                            </button>
+                        </div>
+
+                                            <div class="pricing-card featured">
+                            <div class="pricing-badge">Más Popular</div>
+                            <div class="pricing-header">
+                                <h3>Acceso por 1 Año</h3>
+                                <div class="price">
+                                    <span class="currency">S/</span>
+                                    <span class="amount">99</span>
+                                    <span class="period">pago único</span>
+                                </div>
+                                <div class="savings">Ahorras S/ 21 vs compras mensuales</div>
+                            </div>
+                            <div class="pricing-features">
+                                <ul>
+                                    <li><i class="fas fa-check"></i> Acceso completo por 365 días</li>
+                                    <li><i class="fas fa-check"></i> Todas las calculadoras jurídicas</li>
+                                    <li><i class="fas fa-check"></i> Soporte prioritario 24/7</li>
+                                    <li><i class="fas fa-check"></i> Funciones premium incluidas</li>
+                                    <li><i class="fas fa-check"></i> Backup automático de datos</li>
+                                    <li><i class="fas fa-check"></i> Acceso anticipado a nuevas funciones</li>
+                                    <li><i class="fas fa-check"></i> Capacitación personalizada</li>
+                                    <li><i class="fas fa-info-circle"></i> Renovación manual al vencer</li>
+                                </ul>
+                            </div>
+                            <button class="pricing-button featured" onclick="addToCart('Acceso por 1 Año', 99)">
+                                <i class="fas fa-star"></i>
+                                Comprar Acceso
+                            </button>
+                        </div>
+                </div>
+                
+                <!-- Botones de prueba para desarrollo local -->
+                <div style="margin: 2rem 0; padding: 1.5rem; background: #f8f9fa; border-radius: 15px; border: 2px dashed #dee2e6; text-align: center;">
+                    <h4 style="color: #6c757d; margin-bottom: 1rem;">🧪 Herramientas de Prueba (Solo Desarrollo Local)</h4>
+                    <p style="color: #6c757d; margin-bottom: 1rem; font-size: 0.9rem;">
+                        Usa estos botones para probar el sistema sin necesidad de configurar Izipay
+                    </p>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
+                        <button onclick="testLocalAccess()" style="padding: 0.75rem 1.5rem; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;">
+                            🧪 Probar Acceso
+                        </button>
+                        <button onclick="showCurrentStatus()" style="padding: 0.75rem 1.5rem; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;">
+                            📊 Estado Actual
+                        </button>
+                        <button onclick="simulateCompletePayment()" style="padding: 0.75rem 1.5rem; background: #ffc107; color: #212529; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;">
+                            🎭 Simular Pago
+                        </button>
+                        <button onclick="clearAllData()" style="padding: 0.75rem 1.5rem; background: #dc3545; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;">
+                            🗑️ Limpiar Datos
+                        </button>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #6c757d; margin-top: 1rem;">
+                        ⚠️ Estos botones solo están disponibles para desarrollo y pruebas locales
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="caracteristicas" class="features">
+            <div class="container">
+                <h2 class="section-title">¿Por qué elegir JurisCalc?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="feature-title">100% Seguro</h3>
+                        <p>Tus datos están protegidos con encriptación de nivel bancario</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Actualizaciones Gratuitas</h3>
+                        <p>Recibe actualizaciones automáticas con las últimas normativas</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3 class="feature-title">Multiplataforma</h3>
+                        <p>Disponible en iOS, Android y Web para trabajar desde cualquier lugar</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3 class="feature-title">Soporte 24/7</h3>
+                        <p>Equipo de soporte técnico disponible en cualquier momento</p>
+                    </div>
+                </div>
+            </div>
+          </section>
+
+        <!-- Contact Section -->
+        <section id="contacto" class="app-description">
+            <div class="container">
+                <h2 class="section-title">Contacto</h2>
+                <div class="description-content">
+                    <div class="description-text">
+                        <h3>¿Necesitas ayuda o tienes alguna consulta?</h3>
+                        <p>Nuestro equipo de soporte está disponible para ayudarte con cualquier pregunta sobre JurisCalc o para resolver dudas técnicas.</p>
+                        
+                        <div class="contact-info" style="margin-top: 2rem;">
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <i class="fas fa-phone" style="color: #667eea; margin-right: 1rem; font-size: 1.2rem;"></i>
+                                <div>
+                                    <strong>Teléfono:</strong><br>
+                                    <span>+51 991 145 303</span>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <i class="fas fa-envelope" style="color: #667eea; margin-right: 1rem; font-size: 1.2rem;"></i>
+                                <div>
+                                    <strong>Email:</strong><br>
+                                    <span>jcarlosunmsm@gmail.com</span>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                                <i class="fas fa-clock" style="color: #667eea; margin-right: 1rem; font-size: 1.2rem;"></i>
+                                <div>
+                                    <strong>Horario de Atención:</strong><br>
+                                    <span>Lunes a Viernes: 9:00 AM - 6:00 PM</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description-image">
+                        <img src="./JurisCal.svg" alt="JurisCalc Logo">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <div class="cart-header">
+                <h3><i class="fas fa-shopping-cart"></i> Carrito de Compras</h3>
+                <button class="close-cart" onclick="toggleCart()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="cart-items" id="cartItems">
+                    <div class="cart-item">
+                        <div>
+                            <strong>Acceso por 1 Año</strong>
+                            <br>
+                            <small>S/ 99.00 x 1</small>
+                        </div>
+                        <div>
+                            <strong>S/ 99.00</strong>
+                            <button onclick="removeFromCart(0)" style="background: none; border: none; color: #e74c3c; cursor: pointer; margin-left: 10px;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            
+            <div class="cart-total" id="cartTotal">Total: S/ 99.00</div>
+
+            <div class="payment-methods">
+                <h4 class="payment-title">Método de Pago</h4>
+                <div class="payment-options">
+                    <div class="payment-option" onclick="selectPayment('yape')">
+                        <i class="fas fa-mobile-alt payment-icon yape"></i>
+                        <span>Yape</span>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment('bank')">
+                        <i class="fas fa-university payment-icon bank"></i>
+                        <span>Transferencia Bancaria</span>
+                    </div>
+                </div>
+                
+                <button class="checkout-button" onclick="checkout()">
+                    <i class="fas fa-credit-card"></i>
+                    Pagar Ahora (Pago Único)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('juriscalcCart')) || [];
+        let selectedPayment = null;
+
+        function addToCart(name, price) {
+            // Validar si ya hay un plan de acceso en el carrito
+            const isSubscription = name.includes('Acceso por');
+            const existingSubscription = cart.find(item => item.name.includes('Acceso por'));
+            
+            // Si es un plan de acceso y ya existe uno diferente, preguntar si reemplazar
+            if (isSubscription && existingSubscription && existingSubscription.name !== name) {
+                if (confirm('Ya tienes un plan de acceso en el carrito. ¿Deseas reemplazarlo con este nuevo plan?')) {
+                    // Remover el plan anterior
+                    const index = cart.findIndex(item => item.name.includes('Acceso por'));
+                    cart.splice(index, 1);
+                } else {
+                    return; // Cancelar la operación
+                }
+            }
+            
+            // Si es un plan de acceso y ya existe el mismo plan, no permitir duplicados
+            if (isSubscription && existingSubscription && existingSubscription.name === name) {
+                showNotification('Este plan ya está en tu carrito. Solo puedes tener un plan de acceso a la vez.');
+                return;
+            }
+            
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            // Guardar en localStorage
+            localStorage.setItem('juriscalcCart', JSON.stringify(cart));
+            
+            updateCartDisplay();
+            
+            // Mostrar notificación específica para pago único
+            const message = isSubscription 
+                ? `${name} agregado al carrito - Pago único de S/ ${price.toFixed(2)}`
+                : `${name} agregado al carrito - S/ ${price.toFixed(2)}`;
+            
+            showNotification(message);
+        }
+
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            // Update cart items
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                
+                cartItems.innerHTML += `
+                    <div class="cart-item">
+                        <div>
+                            <strong>${item.name}</strong>
+                            <br>
+                            <small>S/ ${item.price.toFixed(2)} x ${item.quantity}</small>
+                        </div>
+                        <div>
+                            <strong>S/ ${itemTotal.toFixed(2)}</strong>
+                            <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #e74c3c; cursor: pointer; margin-left: 10px;">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            cartTotal.textContent = `Total: S/ ${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('juriscalcCart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+
+
+
+        function toggleCart() {
+            const modal = document.getElementById('cartModal');
+            if (modal.style.display === 'block') {
+                modal.style.display = 'none';
+            } else {
+                modal.style.display = 'block';
+            }
+        }
+
+        function selectPayment(method) {
+            selectedPayment = method;
+            
+            // Remove previous selections
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked option
+            event.currentTarget.classList.add('selected');
+        }
+
+        // Configuración de MiCuentaWeb para Yape
+        const MICUENTAWEB_CONFIG = {
+            publicKey: '34847543:publickey_roHcdAzJvSKemEhBQ9ZyDlzJ3pOrahQfa1jQEYPc6QPM3',
+            apiUrl: 'https://api.micuentaweb.pe',
+            phoneNumber: '991145303',
+            password: 'prodpassword_kkFuyhdmdaLQ7bwNOAJDMOICdMJQU0uw7n0ktM2LSpWbH',
+            hmacKey: 'PGHTxYcNb6bv0v0u0wUQ3iqFtS3nnegBrcWXPTYWsvRWR',
+            merchantId: '34847543'
+        };
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+            
+            if (!selectedPayment) {
+                alert('Por favor selecciona un método de pago');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            // Validar monto mínimo
+            if (total < 1) {
+                alert('El monto mínimo para el pago es S/ 1.00');
+                return;
+            }
+            
+            const confirmMessage = `¿Confirmar pago único de S/ ${total.toFixed(2)}?\n\n` +
+                                 `📋 Resumen de tu compra:\n` +
+                                 cart.map(item => `• ${item.name} - S/ ${(item.price * item.quantity).toFixed(2)}`).join('\n') +
+                                 `\n\n💳 Método de pago: ${selectedPayment.toUpperCase()}` +
+                                 `\n\n✅ IMPORTANTE: Este es un pago único. No habrá cobros recurrentes.`;
+            
+            if (confirm(confirmMessage)) {
+                if (selectedPayment === 'yape') {
+                    // Validar configuración antes de redirigir
+                    if (!MICUENTAWEB_CONFIG.publicKey || !MICUENTAWEB_CONFIG.phoneNumber) {
+                        alert('Error: Configuración de pago incompleta. Contacta al administrador.');
+                        return;
+                    }
+                    redirectToYape(total);
+                } else {
+                    processOtherPayment(total);
+                }
+            }
+        }
+
+        function redirectToYape(amount) {
+            showNotification('Iniciando pago con Yape...');
+            
+            const orderId = 'JURISCALC_' + Date.now();
+            const amountInCents = Math.round(amount * 100);
+            
+            // URL base de la página actual
+            const baseUrl = window.location.origin + window.location.pathname;
+            
+            // Crear modal para el formulario de pago
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                padding: 2rem;
+                border-radius: 10px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+            `;
+            
+            // Crear el contenedor para el formulario de pago
+            const paymentFormContainer = document.createElement('div');
+            paymentFormContainer.id = 'yape-payment-form';
+            paymentFormContainer.className = 'kr-embedded';
+            paymentFormContainer.setAttribute('kr-public-key', MICUENTAWEB_CONFIG.publicKey);
+            paymentFormContainer.setAttribute('kr-language', 'es-PE');
+                         paymentFormContainer.setAttribute('kr-post-url-success', baseUrl + '?payment=success');
+             paymentFormContainer.setAttribute('kr-post-url-refused', baseUrl + '?payment=cancelled');
+             paymentFormContainer.setAttribute('kr-post-url-back', baseUrl + '?payment=back');
+            
+                         modalContent.innerHTML = `
+                 <h3>🔄 ${selectedPayment === 'yape' ? 'Pago con Yape' : 'Transferencia Bancaria'}</h3>
+                 <p>Complete los datos para realizar el pago</p>
+             `;
+            
+            modalContent.appendChild(paymentFormContainer);
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+                         // Guardar datos del plan para activación automática
+             const planItem = cart.find(item => item.name.includes('Acceso por'));
+             const pendingPayment = {
+                 orderId: orderId,
+                 amount: amount,
+                 planName: planItem ? planItem.name : 'Acceso JurisCalc',
+                 planDays: planItem && planItem.name.includes('1 Año') ? 365 : 30,
+                 paymentMethod: 'yape',
+                 date: new Date().toISOString(),
+                 status: 'pending'
+             };
+             
+             // Guardar en localStorage para que el webhook pueda encontrarlo
+             const pendingPayments = JSON.parse(localStorage.getItem('juriscalcPendingPayments') || '[]');
+             pendingPayments.push(pendingPayment);
+             localStorage.setItem('juriscalcPendingPayments', JSON.stringify(pendingPayments));
+             
+             // Configurar el formulario de pago con Krypton Client
+             const paymentData = {
+                 amount: amountInCents,
+                 currency: 'PEN',
+                 orderId: orderId,
+                 customer: {
+                     email: 'cliente@example.com'
+                 },
+                 paymentMethods: selectedPayment === 'yape' ? ['YAPE'] : ['BANK_TRANSFER']
+             };
+            
+            // Cargar el SDK de Krypton Client si aún no está cargado
+            if (typeof KR === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://static.micuentaweb.pe/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js';
+                script.onload = function() {
+                    initializePaymentForm(paymentData);
+                };
+                document.head.appendChild(script);
+            } else {
+                initializePaymentForm(paymentData);
+            }
+            
+            // Botón para cerrar el modal
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Cancelar';
+            closeButton.style.cssText = `
+                margin-top: 1rem;
+                padding: 0.5rem 1rem;
+                background: #f44336;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            `;
+            closeButton.onclick = function() {
+                document.body.removeChild(modal);
+            };
+            modalContent.appendChild(closeButton);
+        }
+        
+                         async function initializePaymentForm(paymentData) {
+            try {
+                console.log('Inicializando formulario de pago con datos:', paymentData);
+                
+                // Modo de prueba - simular pago exitoso
+                if (typeof KR === 'undefined') {
+                    console.log('🔧 KR no está disponible, usando modo de prueba local');
+                    
+                    // Simular pago exitoso después de 3 segundos
+                    setTimeout(async () => {
+                        console.log('Simulando pago exitoso...');
+                        showNotification('🔄 Procesando pago en modo de prueba local...', 'info');
+                        
+                        try {
+                            // Obtener token de prueba
+                            const formToken = await createFormToken(paymentData);
+                            console.log('Token de prueba generado:', formToken);
+                            
+                            // Simular pago exitoso
+                            setTimeout(() => {
+                                showNotification('✅ Pago procesado exitosamente en modo de prueba!', 'success');
+                                
+                                // Activar acceso automáticamente
+                                const planItem = cart.find(item => item.name.includes('Acceso por'));
+                                if (planItem) {
+                                    const now = new Date();
+                                    const days = planItem.name.includes('1 Año') ? 365 : 30;
+                                    const expiryDate = new Date(now.getTime() + (days * 24 * 60 * 60 * 1000));
+                                    
+                                    const activePlan = {
+                                        name: planItem.name,
+                                        price: planItem.price,
+                                        purchaseDate: now.toISOString(),
+                                        expiryDate: expiryDate.toISOString(),
+                                        customerEmail: 'cliente@example.com',
+                                        customerName: 'Cliente JurisCalc',
+                                        transactionId: 'TXN_' + Date.now(),
+                                        paymentMethod: selectedPayment
+                                    };
+                                    
+                                    localStorage.setItem('juriscalcActivePlan', JSON.stringify(activePlan));
+                                    
+                                    // Limpiar carrito
+                                    cart = [];
+                                    localStorage.removeItem('juriscalcCart');
+                                    updateCartDisplay();
+                                    
+                                    // Cerrar modal
+                                    const modal = document.querySelector('div[style*="z-index: 10000"]');
+                                    if (modal) {
+                                        document.body.removeChild(modal);
+                                    }
+                                    
+                                    showNotification('✅ Acceso activado por ' + days + ' días');
+                                    
+                                    // Redirigir a las calculadoras después de 2 segundos
+                                    setTimeout(() => {
+                                        window.location.href = 'calculadoras.html';
+                                    }, 2000);
+                                }
+                            }, 2000);
+                            
+                        } catch (error) {
+                            console.error('Error en modo de prueba:', error);
+                            showNotification('❌ Error en modo de prueba. Intente nuevamente.');
+                        }
+                    }, 1000);
+                    
+                    return;
+                }
+                
+                // Inicializar el formulario de pago real
+                const formToken = await createFormToken(paymentData);
+                KR.setFormConfig({
+                    formToken: formToken,
+                    "kr-language": "es-PE"
+                }).then(({ KR }) => {
+                    KR.onSubmit(paymentData => {
+                        console.log('Pago enviado:', paymentData);
+                    });
+                }).catch(error => {
+                    console.error('Error al configurar el formulario:', error);
+                    showNotification('Error al iniciar el pago. Intente nuevamente.');
+                });
+            } catch (error) {
+                console.error('Error al inicializar el formulario de pago:', error);
+                showNotification('Error al iniciar el pago. Intente nuevamente.');
+            }
+        }
+        
+                         async function createFormToken(paymentData) {
+            try {
+                console.log('Generando token para:', paymentData);
+                
+                // Verificar si estamos en Netlify o local
+                const isNetlify = window.location.hostname.includes('netlify.app') || 
+                                 window.location.hostname.includes('netlify.com');
+                
+                if (isNetlify) {
+                    // En Netlify, usar la función real
+                    const response = await fetch('/.netlify/functions/generate-token', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(paymentData)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    console.log('Token generado:', result);
+                    
+                    return result.formToken;
+                } else {
+                    // En local, usar modo de prueba
+                    console.log('🔧 Modo local detectado - usando token de prueba');
+                    return `DEMO-TOKEN-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+                }
+                
+            } catch (error) {
+                console.error('Error generando token:', error);
+                // Fallback para desarrollo local
+                console.log('🔄 Usando token de fallback para desarrollo local');
+                return `DEMO-TOKEN-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+            }
+        }
+
+        function processOtherPayment(amount) {
+            // Procesar transferencia bancaria
+            const isBankTransfer = selectedPayment === 'bank';
+            
+            if (isBankTransfer) {
+                showNotification('Iniciando transferencia bancaria...');
+            } else {
+                showNotification('Método de pago no válido');
+                return;
+            }
+            
+            const orderId = 'JURISCALC_' + Date.now();
+            const amountInCents = Math.round(amount * 100);
+            
+            // URL base de la página actual
+            const baseUrl = window.location.origin + window.location.pathname;
+            
+            // Crear modal para el formulario de pago
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                padding: 2rem;
+                border-radius: 10px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+            `;
+            
+                         if (isBankTransfer) {
+                 // Transferencia bancaria automática con Izipay
+                 modalContent.innerHTML = `
+                     <h3>🏦 Transferencia Bancaria</h3>
+                     <p>Será redirigido al sistema de pagos seguro de Izipay para completar su transferencia.</p>
+                     <div style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                         <p><strong>Monto:</strong> S/ ${(amount).toFixed(2)}</p>
+                         <p><strong>Referencia:</strong> ${orderId}</p>
+                         <p><strong>Proceso:</strong> Automático y seguro</p>
+                     </div>
+                     <button id="proceed-transfer" style="width: 100%; padding: 12px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Proceder al Pago</button>
+                 `;
+                 
+                 modal.appendChild(modalContent);
+                 document.body.appendChild(modal);
+                 
+                 // Agregar evento al botón de proceder
+                 setTimeout(() => {
+                     document.getElementById('proceed-transfer').addEventListener('click', function() {
+                         document.body.removeChild(modal);
+                         redirectToYape(amount); // Usar el mismo sistema que Yape para transferencias
+                     });
+                 }, 100);
+             }
+            
+            // Botón para cerrar el modal
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Cancelar';
+            closeButton.style.cssText = `
+                margin-top: 1rem;
+                padding: 0.5rem 1rem;
+                background: #f44336;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            `;
+            closeButton.onclick = function() {
+                document.body.removeChild(modal);
+            };
+            modalContent.appendChild(closeButton);
+        }
+
+
+        
+        function activatePlan() {
+            const planItem = cart.find(item => item.name.includes('Acceso por'));
+            if (planItem) {
+                const now = new Date();
+                const days = planItem.name.includes('1 Año') ? 365 : 30;
+                const expiryDate = new Date(now.getTime() + (days * 24 * 60 * 60 * 1000));
+                
+                const activePlan = {
+                    name: planItem.name,
+                    price: planItem.price,
+                    purchaseDate: now.toISOString(),
+                    expiryDate: expiryDate.toISOString()
+                };
+                
+                localStorage.setItem('juriscalcActivePlan', JSON.stringify(activePlan));
+            }
+        }
+
+                 function checkAccess() {
+             const activePlan = JSON.parse(localStorage.getItem('juriscalcActivePlan'));
+             if (!activePlan) return false;
+             
+             const now = new Date();
+             const expiryDate = new Date(activePlan.expiryDate);
+             
+             return now < expiryDate;
+         }
+         
+         // Función para verificar estado de acceso en tiempo real
+         function verificarEstadoAcceso() {
+             const activePlan = JSON.parse(localStorage.getItem('juriscalcActivePlan'));
+             
+             if (!activePlan) {
+                 console.log('❌ No hay plan activo');
+                 return {
+                     tieneAcceso: false,
+                     mensaje: 'No tienes acceso activo'
+                 };
+             }
+             
+             const now = new Date();
+             const expiryDate = new Date(activePlan.expiryDate);
+             const diasRestantes = Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24));
+             
+             if (now < expiryDate) {
+                 console.log('✅ Acceso activo - Días restantes:', diasRestantes);
+                 return {
+                     tieneAcceso: true,
+                     plan: activePlan.name,
+                     diasRestantes: diasRestantes,
+                     fechaVencimiento: activePlan.expiryDate,
+                     mensaje: `Acceso activo - ${diasRestantes} días restantes`
+                 };
+             } else {
+                 console.log('❌ Acceso vencido');
+                 return {
+                     tieneAcceso: false,
+                     mensaje: 'Tu acceso ha vencido'
+                 };
+             }
+         }
+
+
+
+
+
+
+
+
+
+        function showSuccessMessage() {
+            showNotification('¡Pago exitoso! Acceso activado por el período seleccionado.');
+            
+            // Reset cart and UI
+            cart = [];
+            selectedPayment = null;
+            localStorage.removeItem('juriscalcCart');
+            updateCartDisplay();
+            toggleCart();
+            
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            setTimeout(() => {
+                alert('✅ Pago procesado exitosamente\n\n' +
+                      '📧 Recibirás un email con los detalles de tu acceso\n' +
+                      '🔑 Tu acceso estará disponible inmediatamente\n' +
+                      '📅 Recuerda: Renovación manual al vencer el período');
+            }, 1000);
+        }
+
+                 function showNotification(message, type = 'success') {
+             // Create notification element
+             const notification = document.createElement('div');
+             const backgroundColor = type === 'error' ? '#e74c3c' : '#27ae60';
+             
+             notification.style.cssText = `
+                 position: fixed;
+                 top: 100px;
+                 right: 20px;
+                 background: ${backgroundColor};
+                 color: white;
+                 padding: 1rem 2rem;
+                 border-radius: 10px;
+                 z-index: 3000;
+                 animation: slideIn 0.3s ease;
+             `;
+             notification.textContent = message;
+             
+             document.body.appendChild(notification);
+             
+             // Remove after 3 seconds
+             setTimeout(() => {
+                 notification.remove();
+             }, 3000);
+         }
+
+
+
+        // Close cart when clicking outside
+        document.getElementById('cartModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                toggleCart();
+            }
+        });
+
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+            handlePaymentReturn();
+            checkCartIcon();
+            testMiCuentaWebConnection(); // Probar conexión con MiCuentaWeb
+
+        });
+
+        // Verificar si el ícono del carrito se muestra correctamente
+        function checkCartIcon() {
+            setTimeout(() => {
+                const cartIcon = document.querySelector('.cart-icon i');
+                const cartEmoji = document.querySelector('.cart-emoji');
+                
+                // Verificar si el ícono de FontAwesome está visible
+                if (cartIcon && (cartIcon.offsetWidth === 0 || cartIcon.offsetHeight === 0)) {
+                    // FontAwesome no está cargado, mostrar emoji
+                    document.querySelector('.cart-icon').classList.add('no-fontawesome');
+                }
+            }, 1000);
+        }
+
+        function handlePaymentReturn() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const paymentStatus = urlParams.get('payment');
+            
+            if (paymentStatus === 'success') {
+                showNotification('¡Pago exitoso! Tu acceso ha sido activado.');
+                activatePlan();
+                clearUrlParams();
+            } else if (paymentStatus === 'cancelled') {
+                showNotification('Pago cancelado. Puedes intentar nuevamente.');
+                clearUrlParams();
+            }
+        }
+
+        function clearUrlParams() {
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+                 // Función para probar la conectividad con MiCuentaWeb
+         function testMiCuentaWebConnection() {
+             console.log('Configuración MiCuentaWeb:', {
+                 apiUrl: MICUENTAWEB_CONFIG.apiUrl,
+                 publicKey: MICUENTAWEB_CONFIG.publicKey ? 'Configurado' : 'No configurado',
+                 phoneNumber: MICUENTAWEB_CONFIG.phoneNumber
+             });
+         }
+         
+         // Función para administrador: Ver pagos pendientes
+         function verPagosPendientes() {
+             const pendingPayments = JSON.parse(localStorage.getItem('juriscalcPendingPayments') || '[]');
+             console.log('📋 PAGOS PENDIENTES:', pendingPayments);
+             return pendingPayments;
+         }
+         
+         // Función para administrador: Activar acceso manualmente
+         function activarAcceso(orderId) {
+             const pendingPayments = JSON.parse(localStorage.getItem('juriscalcPendingPayments') || '[]');
+             const payment = pendingPayments.find(p => p.orderId === orderId);
+             
+             if (!payment) {
+                 console.error('❌ Pago no encontrado:', orderId);
+                 return false;
+             }
+             
+             // Activar el plan
+             const planItem = cart.find(item => item.name.includes('Acceso por'));
+             if (planItem) {
+                 const now = new Date();
+                 const days = planItem.name.includes('1 Año') ? 365 : 30;
+                 const expiryDate = new Date(now.getTime() + (days * 24 * 60 * 60 * 1000));
+                 
+                 const activePlan = {
+                     name: planItem.name,
+                     price: planItem.price,
+                     purchaseDate: now.toISOString(),
+                     expiryDate: expiryDate.toISOString(),
+                     customerEmail: payment.customerEmail,
+                     customerName: payment.customerName
+                 };
+                 
+                 localStorage.setItem('juriscalcActivePlan', JSON.stringify(activePlan));
+                 
+                 // Marcar pago como completado
+                 payment.status = 'completed';
+                 localStorage.setItem('juriscalcPendingPayments', JSON.stringify(pendingPayments));
+                 
+                 console.log('✅ Acceso activado para:', payment.customerName, payment.customerEmail);
+                 return true;
+             }
+             
+             return false;
+         }
+         
+                   // Función para administrador: Eliminar pago pendiente
+          function eliminarPagoPendiente(orderId) {
+              const pendingPayments = JSON.parse(localStorage.getItem('juriscalcPendingPayments') || '[]');
+              const filteredPayments = pendingPayments.filter(p => p.orderId !== orderId);
+              localStorage.setItem('juriscalcPendingPayments', JSON.stringify(filteredPayments));
+              console.log('🗑️ Pago eliminado:', orderId);
+          }
+          
+          // Función para simular webhook de Izipay (para pruebas)
+          function simularWebhookIzipay(orderId) {
+              console.log('🔄 Simulando webhook de Izipay para:', orderId);
+              
+              const pendingPayments = JSON.parse(localStorage.getItem('juriscalcPendingPayments') || '[]');
+              const pendingPayment = pendingPayments.find(p => p.orderId === orderId);
+              
+              if (!pendingPayment) {
+                  console.error('❌ Pago pendiente no encontrado:', orderId);
+                  return false;
+              }
+              
+              // Simular activación automática
+              const activePlan = {
+                  name: pendingPayment.planName,
+                  price: pendingPayment.amount,
+                  purchaseDate: new Date().toISOString(),
+                  expiryDate: new Date(Date.now() + (pendingPayment.planDays * 24 * 60 * 60 * 1000)).toISOString(),
+                  customerEmail: 'cliente@example.com',
+                  customerName: 'Cliente JurisCalc',
+                  transactionId: 'TXN_' + Date.now(),
+                  paymentMethod: pendingPayment.paymentMethod
+              };
+              
+              // Guardar plan activo
+              localStorage.setItem('juriscalcActivePlan', JSON.stringify(activePlan));
+              
+              // Marcar pago como completado
+              pendingPayment.status = 'completed';
+              pendingPayment.activatedAt = new Date().toISOString();
+              localStorage.setItem('juriscalcPendingPayments', JSON.stringify(pendingPayments));
+              
+              console.log('✅ Acceso activado automáticamente para:', orderId);
+              showNotification('¡Acceso activado automáticamente!');
+              
+              return true;
+          }
+
+        // Sync cart when page becomes visible (when returning from other pages)
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                const savedCart = JSON.parse(localStorage.getItem('juriscalcCart')) || [];
+                cart = savedCart;
+                updateCartDisplay();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // ===== FUNCIONES DE PRUEBA PARA DESARROLLO LOCAL =====
+        
+        // Función para probar acceso local
+        function testLocalAccess() {
+            console.log('🧪 Probando acceso local...');
+            
+            // Crear un plan de prueba
+            const testPlan = {
+                name: 'Plan de Prueba Local',
+                price: 29.99,
+                purchaseDate: new Date().toISOString(),
+                expiryDate: new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)).toISOString(), // 30 días
+                customerEmail: 'test@local.com',
+                customerName: 'Usuario de Prueba',
+                transactionId: 'TEST_TXN_' + Date.now(),
+                paymentMethod: 'test_local'
+            };
+            
+            localStorage.setItem('juriscalcActivePlan', JSON.stringify(testPlan));
+            
+            console.log('✅ Plan de prueba creado:', testPlan);
+            showNotification('🧪 Plan de prueba activado por 30 días', 'success');
+            
+            // Verificar acceso
+            setTimeout(() => {
+                const hasAccess = checkAccess();
+                console.log('🔍 ¿Tiene acceso?', hasAccess);
+                showNotification(`🔍 Verificación: ${hasAccess ? '✅ Acceso activo' : '❌ Sin acceso'}`, hasAccess ? 'success' : 'error');
+            }, 1000);
+        }
+
+        // Función para mostrar estado actual
+        function showCurrentStatus() {
+            console.log('📊 Estado actual del sistema:');
+            
+            const activePlan = localStorage.getItem('juriscalcActivePlan');
+            const cartItems = localStorage.getItem('juriscalcCart');
+            
+            console.log('📋 Plan activo:', activePlan ? JSON.parse(activePlan) : 'Ninguno');
+            console.log('🛒 Carrito:', cartItems ? JSON.parse(cartItems) : 'Vacío');
+            console.log('🌐 Hostname:', window.location.hostname);
+            console.log('🔗 URL completa:', window.location.href);
+            
+            showNotification('📊 Estado mostrado en consola', 'info');
+        }
+
+        // Función para limpiar todo (solo desarrollo)
+        function clearAllData() {
+            if (confirm('¿Estás seguro de que quieres limpiar todos los datos? (Solo para desarrollo)')) {
+                localStorage.removeItem('juriscalcActivePlan');
+                localStorage.removeItem('juriscalcCart');
+                localStorage.removeItem('juriscalcPendingPayments');
+                
+                cart = [];
+                updateCartDisplay();
+                
+                showNotification('🗑️ Todos los datos han sido limpiados', 'success');
+                console.log('🧹 Datos limpiados para desarrollo');
+            }
+        }
+
+        // Función para simular pago completo
+        function simulateCompletePayment() {
+            console.log('🎭 Simulando pago completo...');
+            
+            // Agregar item al carrito
+            const testItem = {
+                id: 'test_plan',
+                name: 'Acceso por 1 Mes',
+                price: 29.99,
+                days: 30
+            };
+            
+            cart = [testItem];
+            localStorage.setItem('juriscalcCart', JSON.stringify(cart));
+            updateCartDisplay();
+            
+            showNotification('🛒 Item agregado al carrito para prueba', 'info');
+            
+            // Simular checkout
+            setTimeout(() => {
+                checkout();
+            }, 1000);
+        }
+
+        // ===== FIN FUNCIONES DE PRUEBA =====
+    </script>
+    
+    <!-- MiCuentaWeb Krypton Client -->
+    <script src="https://static.micuentaweb.pe/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js"></script>
+</body>
+</html>
