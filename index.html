@@ -1671,13 +1671,7 @@
             event.currentTarget.classList.add('selected');
         }
 
-        // Configuración de MiCuentaWeb para Yape (solo datos públicos)
-        const MICUENTAWEB_CONFIG = {
-            publicKey: '34847543:publickey_roHcdAzJvSKemEhBQ9ZyDlzJ3pOrahQfa1jQEYPc6QPM3',
-            apiUrl: 'https://api.micuentaweb.pe',
-            phoneNumber: '991145303',
-            merchantId: '34847543'
-        };
+
 
         function checkout() {
             if (cart.length === 0) {
@@ -1705,257 +1699,8 @@
                                  `\n\n✅ IMPORTANTE: Este es un pago único. No habrá cobros recurrentes.`;
             
             if (confirm(confirmMessage)) {
-                if (selectedPayment === 'yape') {
-                    // Validar configuración antes de redirigir
-                    if (!MICUENTAWEB_CONFIG.publicKey || !MICUENTAWEB_CONFIG.phoneNumber) {
-                        alert('Error: Configuración de pago incompleta. Contacta al administrador.');
-                        return;
-                    }
-                    redirectToYape(total);
-                } else {
-                    processOtherPayment(total);
-                }
-            }
-        }
-
-        function redirectToYape(amount) {
-            showNotification('Iniciando pago con Yape...');
-            
-            const orderId = 'JURISCALC_' + Date.now();
-            const amountInCents = Math.round(amount * 100);
-            
-            // URL base de la página actual
-            const baseUrl = window.location.origin + window.location.pathname;
-            
-            // Crear modal para el formulario de pago
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.8);
-                z-index: 10000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            `;
-            
-            const modalContent = document.createElement('div');
-            modalContent.style.cssText = `
-                background: white;
-                padding: 2rem;
-                border-radius: 10px;
-                max-width: 500px;
-                width: 90%;
-                text-align: center;
-            `;
-            
-            // Crear el contenedor para el formulario de pago
-            const paymentFormContainer = document.createElement('div');
-            paymentFormContainer.id = 'yape-payment-form';
-            paymentFormContainer.className = 'kr-embedded';
-            paymentFormContainer.setAttribute('kr-public-key', MICUENTAWEB_CONFIG.publicKey);
-            paymentFormContainer.setAttribute('kr-language', 'es-PE');
-            paymentFormContainer.setAttribute('kr-post-url-success', baseUrl + '?payment=success');
-            paymentFormContainer.setAttribute('kr-post-url-refused', baseUrl + '?payment=cancelled');
-             paymentFormContainer.setAttribute('kr-post-url-back', baseUrl + '?payment=back');
-            
-            modalContent.innerHTML = `
-                 <h3>🔄 ${selectedPayment === 'yape' ? 'Pago con Yape' : 'Transferencia Bancaria'}</h3>
-                <p>Complete los datos para realizar el pago</p>
-            `;
-            
-            modalContent.appendChild(paymentFormContainer);
-            modal.appendChild(modalContent);
-            document.body.appendChild(modal);
-            
-                         // Guardar datos del plan para activación automática
-             const planItem = cart.find(item => item.name.includes('Acceso por'));
-             const pendingPayment = {
-                 orderId: orderId,
-                 amount: amount,
-                 planName: planItem ? planItem.name : 'Acceso JurisCalc',
-                 planDays: planItem && planItem.name.includes('1 Año') ? 365 : 30,
-                 paymentMethod: 'yape',
-                 date: new Date().toISOString(),
-                 status: 'pending'
-             };
-             
-             // Guardar en localStorage para que el webhook pueda encontrarlo
-             const pendingPayments = JSON.parse(localStorage.getItem('juriscalcPendingPayments') || '[]');
-             pendingPayments.push(pendingPayment);
-             localStorage.setItem('juriscalcPendingPayments', JSON.stringify(pendingPayments));
-            
-            // Configurar el formulario de pago con Krypton Client
-            const paymentData = {
-                amount: amountInCents,
-                currency: 'PEN',
-                orderId: orderId,
-                customer: {
-                    email: 'cliente@example.com'
-                },
-                 paymentMethods: selectedPayment === 'yape' ? ['YAPE'] : ['BANK_TRANSFER']
-            };
-            
-            // Cargar el SDK de Krypton Client si aún no está cargado
-            if (typeof KR === 'undefined') {
-                const script = document.createElement('script');
-                script.src = 'https://static.micuentaweb.pe/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js';
-                script.onload = function() {
-                    initializePaymentForm(paymentData);
-                };
-                document.head.appendChild(script);
-            } else {
-                initializePaymentForm(paymentData);
-            }
-            
-            // Botón para cerrar el modal
-            const closeButton = document.createElement('button');
-            closeButton.textContent = 'Cancelar';
-            closeButton.style.cssText = `
-                margin-top: 1rem;
-                padding: 0.5rem 1rem;
-                background: #f44336;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-            `;
-            closeButton.onclick = function() {
-                document.body.removeChild(modal);
-            };
-            modalContent.appendChild(closeButton);
-        }
-        
-                         async function initializePaymentForm(paymentData) {
-            try {
-                console.log('Inicializando formulario de pago con datos:', paymentData);
-                
-                // Modo de prueba - simular pago exitoso
-                if (typeof KR === 'undefined') {
-                    console.log('🔧 KR no está disponible, usando modo de prueba local');
-                    
-                    // Simular pago exitoso después de 3 segundos
-                    setTimeout(async () => {
-                        console.log('Simulando pago exitoso...');
-                        showNotification('🔄 Procesando pago en modo de prueba local...', 'info');
-                        
-                        try {
-                            // Obtener token de prueba
-                            const formToken = await createFormToken(paymentData);
-                            console.log('Token de prueba generado:', formToken);
-                            
-                            // Simular pago exitoso
-                            setTimeout(() => {
-                                showNotification('✅ Pago procesado exitosamente en modo de prueba!', 'success');
-                                
-                                // Activar acceso automáticamente
-                                const planItem = cart.find(item => item.name.includes('Acceso por'));
-                                if (planItem) {
-                                    const now = new Date();
-                                    const days = planItem.name.includes('1 Año') ? 365 : 30;
-                                    const expiryDate = new Date(now.getTime() + (days * 24 * 60 * 60 * 1000));
-                                    
-                                    const activePlan = {
-                                        name: planItem.name,
-                                        price: planItem.price,
-                                        purchaseDate: now.toISOString(),
-                                        expiryDate: expiryDate.toISOString(),
-                                        customerEmail: 'cliente@example.com',
-                                        customerName: 'Cliente JurisCalc',
-                                        transactionId: 'TXN_' + Date.now(),
-                                        paymentMethod: selectedPayment
-                                    };
-                                    
-                                    localStorage.setItem('juriscalcActivePlan', JSON.stringify(activePlan));
-                                    
-                                    // Limpiar carrito
-                                    cart = [];
-                                    localStorage.removeItem('juriscalcCart');
-                                    updateCartDisplay();
-                                    
-                                    // Cerrar modal
-                                    const modal = document.querySelector('div[style*="z-index: 10000"]');
-                                    if (modal) {
-                                        document.body.removeChild(modal);
-                                    }
-                                    
-                                    showNotification('✅ Acceso activado por ' + days + ' días');
-                                    
-                                    // Redirigir a las calculadoras después de 2 segundos
-                                    setTimeout(() => {
-                                        window.location.href = 'calculadoras.html';
-                                    }, 2000);
-                                }
-                            }, 2000);
-                            
-                        } catch (error) {
-                            console.error('Error en modo de prueba:', error);
-                            showNotification('❌ Error en modo de prueba. Intente nuevamente.');
-                        }
-                    }, 1000);
-                    
-                    return;
-                }
-                
-                // Inicializar el formulario de pago real
-                const formToken = await createFormToken(paymentData);
-                KR.setFormConfig({
-                    formToken: formToken,
-                    "kr-language": "es-PE"
-                }).then(({ KR }) => {
-                    KR.onSubmit(paymentData => {
-                        console.log('Pago enviado:', paymentData);
-                    });
-                }).catch(error => {
-                    console.error('Error al configurar el formulario:', error);
-                    showNotification('Error al iniciar el pago. Intente nuevamente.');
-                });
-            } catch (error) {
-                console.error('Error al inicializar el formulario de pago:', error);
-                showNotification('Error al iniciar el pago. Intente nuevamente.');
-            }
-        }
-        
-                         async function createFormToken(paymentData) {
-            try {
-                console.log('Generando token para:', paymentData);
-                
-                // Verificar si estamos en Netlify o local
-                const isNetlify = window.location.hostname.includes('netlify.app') || 
-                                 window.location.hostname.includes('netlify.com');
-                
-                if (isNetlify) {
-                    // En Netlify, usar la función real
-                    const response = await fetch('/.netlify/functions/generate-token', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(paymentData)
-                    });
-                    
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    
-                    const result = await response.json();
-                    console.log('Token generado:', result);
-                    
-                    return result.formToken;
-                } else {
-                    // En local, usar modo de prueba
-                    console.log('🔧 Modo local detectado - usando token de prueba');
-                    return `DEMO-TOKEN-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-                }
-                
-            } catch (error) {
-                console.error('Error generando token:', error);
-                // Fallback para desarrollo local
-                console.log('🔄 Usando token de fallback para desarrollo local');
-                return `DEMO-TOKEN-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+                // Usar el sistema unificado de Netlify Functions para todos los métodos de pago
+                initializePaymentForm(total);
             }
         }
 
@@ -2214,14 +1959,7 @@
             window.history.replaceState({}, document.title, window.location.pathname);
         }
 
-        // Función para probar la conectividad con MiCuentaWeb
-        function testMiCuentaWebConnection() {
-            console.log('Configuración MiCuentaWeb:', {
-                apiUrl: MICUENTAWEB_CONFIG.apiUrl,
-                publicKey: MICUENTAWEB_CONFIG.publicKey ? 'Configurado' : 'No configurado',
-                phoneNumber: MICUENTAWEB_CONFIG.phoneNumber
-            });
-         }
+
          
          // Función para administrador: Ver pagos pendientes
          function verPagosPendientes() {
@@ -2442,7 +2180,6 @@
         // ===== FIN FUNCIONES DE PRUEBA =====
     </script>
     
-    <!-- MiCuentaWeb Krypton Client -->
-    <script src="https://static.micuentaweb.pe/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js"></script>
+
 </body>
 </html>
