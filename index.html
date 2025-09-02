@@ -1671,13 +1671,11 @@
             event.currentTarget.classList.add('selected');
         }
 
-        // Configuración de MiCuentaWeb para Yape
+        // Configuración de MiCuentaWeb para Yape (solo datos públicos)
         const MICUENTAWEB_CONFIG = {
             publicKey: '34847543:publickey_roHcdAzJvSKemEhBQ9ZyDlzJ3pOrahQfa1jQEYPc6QPM3',
             apiUrl: 'https://api.micuentaweb.pe',
             phoneNumber: '991145303',
-            password: 'prodpassword_kkFuyhdmdaLQ7bwNOAJDMOICdMJQU0uw7n0ktM2LSpWbH',
-            hmacKey: 'PGHTxYcNb6bv0v0u0wUQ3iqFtS3nnegBrcWXPTYWsvRWR',
             merchantId: '34847543'
         };
 
@@ -1760,14 +1758,14 @@
             paymentFormContainer.className = 'kr-embedded';
             paymentFormContainer.setAttribute('kr-public-key', MICUENTAWEB_CONFIG.publicKey);
             paymentFormContainer.setAttribute('kr-language', 'es-PE');
-                         paymentFormContainer.setAttribute('kr-post-url-success', baseUrl + '?payment=success');
-             paymentFormContainer.setAttribute('kr-post-url-refused', baseUrl + '?payment=cancelled');
+            paymentFormContainer.setAttribute('kr-post-url-success', baseUrl + '?payment=success');
+            paymentFormContainer.setAttribute('kr-post-url-refused', baseUrl + '?payment=cancelled');
              paymentFormContainer.setAttribute('kr-post-url-back', baseUrl + '?payment=back');
             
-                         modalContent.innerHTML = `
+            modalContent.innerHTML = `
                  <h3>🔄 ${selectedPayment === 'yape' ? 'Pago con Yape' : 'Transferencia Bancaria'}</h3>
-                 <p>Complete los datos para realizar el pago</p>
-             `;
+                <p>Complete los datos para realizar el pago</p>
+            `;
             
             modalContent.appendChild(paymentFormContainer);
             modal.appendChild(modalContent);
@@ -1789,17 +1787,17 @@
              const pendingPayments = JSON.parse(localStorage.getItem('juriscalcPendingPayments') || '[]');
              pendingPayments.push(pendingPayment);
              localStorage.setItem('juriscalcPendingPayments', JSON.stringify(pendingPayments));
-             
-             // Configurar el formulario de pago con Krypton Client
-             const paymentData = {
-                 amount: amountInCents,
-                 currency: 'PEN',
-                 orderId: orderId,
-                 customer: {
-                     email: 'cliente@example.com'
-                 },
+            
+            // Configurar el formulario de pago con Krypton Client
+            const paymentData = {
+                amount: amountInCents,
+                currency: 'PEN',
+                orderId: orderId,
+                customer: {
+                    email: 'cliente@example.com'
+                },
                  paymentMethods: selectedPayment === 'yape' ? ['YAPE'] : ['BANK_TRANSFER']
-             };
+            };
             
             // Cargar el SDK de Krypton Client si aún no está cargado
             if (typeof KR === 'undefined') {
@@ -2005,28 +2003,28 @@
             
                          if (isBankTransfer) {
                  // Transferencia bancaria automática con Izipay
-                 modalContent.innerHTML = `
-                     <h3>🏦 Transferencia Bancaria</h3>
+                modalContent.innerHTML = `
+                    <h3>🏦 Transferencia Bancaria</h3>
                      <p>Será redirigido al sistema de pagos seguro de Izipay para completar su transferencia.</p>
                      <div style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
-                         <p><strong>Monto:</strong> S/ ${(amount).toFixed(2)}</p>
-                         <p><strong>Referencia:</strong> ${orderId}</p>
+                        <p><strong>Monto:</strong> S/ ${(amount).toFixed(2)}</p>
+                        <p><strong>Referencia:</strong> ${orderId}</p>
                          <p><strong>Proceso:</strong> Automático y seguro</p>
-                     </div>
+                    </div>
                      <button id="proceed-transfer" style="width: 100%; padding: 12px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Proceder al Pago</button>
-                 `;
-                 
-                 modal.appendChild(modalContent);
-                 document.body.appendChild(modal);
-                 
+                `;
+                
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+                
                  // Agregar evento al botón de proceder
-                 setTimeout(() => {
+                setTimeout(() => {
                      document.getElementById('proceed-transfer').addEventListener('click', function() {
                          document.body.removeChild(modal);
                          redirectToYape(amount); // Usar el mismo sistema que Yape para transferencias
-                     });
-                 }, 100);
-             }
+                    });
+                }, 100);
+            }
             
             // Botón para cerrar el modal
             const closeButton = document.createElement('button');
@@ -2066,16 +2064,16 @@
             }
         }
 
-                 function checkAccess() {
-             const activePlan = JSON.parse(localStorage.getItem('juriscalcActivePlan'));
-             if (!activePlan) return false;
-             
-             const now = new Date();
-             const expiryDate = new Date(activePlan.expiryDate);
-             
-             return now < expiryDate;
-         }
-         
+        function checkAccess() {
+            const activePlan = JSON.parse(localStorage.getItem('juriscalcActivePlan'));
+            if (!activePlan) return false;
+            
+            const now = new Date();
+            const expiryDate = new Date(activePlan.expiryDate);
+            
+            return now < expiryDate;
+        }
+
          // Función para verificar estado de acceso en tiempo real
          function verificarEstadoAcceso() {
              const activePlan = JSON.parse(localStorage.getItem('juriscalcActivePlan'));
@@ -2141,30 +2139,30 @@
         }
 
                  function showNotification(message, type = 'success') {
-             // Create notification element
-             const notification = document.createElement('div');
+            // Create notification element
+            const notification = document.createElement('div');
              const backgroundColor = type === 'error' ? '#e74c3c' : '#27ae60';
              
-             notification.style.cssText = `
-                 position: fixed;
-                 top: 100px;
-                 right: 20px;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
                  background: ${backgroundColor};
-                 color: white;
-                 padding: 1rem 2rem;
-                 border-radius: 10px;
-                 z-index: 3000;
-                 animation: slideIn 0.3s ease;
-             `;
-             notification.textContent = message;
-             
-             document.body.appendChild(notification);
-             
-             // Remove after 3 seconds
-             setTimeout(() => {
-                 notification.remove();
-             }, 3000);
-         }
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                z-index: 3000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
 
 
 
@@ -2216,13 +2214,13 @@
             window.history.replaceState({}, document.title, window.location.pathname);
         }
 
-                 // Función para probar la conectividad con MiCuentaWeb
-         function testMiCuentaWebConnection() {
-             console.log('Configuración MiCuentaWeb:', {
-                 apiUrl: MICUENTAWEB_CONFIG.apiUrl,
-                 publicKey: MICUENTAWEB_CONFIG.publicKey ? 'Configurado' : 'No configurado',
-                 phoneNumber: MICUENTAWEB_CONFIG.phoneNumber
-             });
+        // Función para probar la conectividad con MiCuentaWeb
+        function testMiCuentaWebConnection() {
+            console.log('Configuración MiCuentaWeb:', {
+                apiUrl: MICUENTAWEB_CONFIG.apiUrl,
+                publicKey: MICUENTAWEB_CONFIG.publicKey ? 'Configurado' : 'No configurado',
+                phoneNumber: MICUENTAWEB_CONFIG.phoneNumber
+            });
          }
          
          // Función para administrador: Ver pagos pendientes
@@ -2315,7 +2313,7 @@
               showNotification('¡Acceso activado automáticamente!');
               
               return true;
-          }
+        }
 
         // Sync cart when page becomes visible (when returning from other pages)
         document.addEventListener('visibilitychange', function() {
