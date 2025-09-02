@@ -4,7 +4,7 @@
   "description": "Sistema de pagos para JurisCalc con MiCuentaWeb",
   "main": "index.html",
   "scripts": {
-    "build": "echo 'Build completed successfully'",
+    "build": "echo 'No build needed for static site'",
     "dev": "netlify dev",
     "postinstall": "echo 'Dependencies installed successfully'"
   },
