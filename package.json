@@ -1,12 +1,10 @@
 {
   "name": "juriscalc-payment-system",
   "version": "1.0.0",
-  "description": "Sistema de pagos para JurisCalc con MiCuentaWeb",
+  "description": "Sistema de pagos para JurisCalc con Netlify Functions",
   "main": "index.html",
   "scripts": {
-    "build": "echo 'No build needed for static site'",
-    "dev": "netlify dev",
-    "postinstall": "echo 'Dependencies installed successfully'"
+    "dev": "netlify dev"
   },
   "dependencies": {
     "crypto": "^1.0.1"
@@ -20,8 +18,8 @@
   "keywords": [
     "juriscalc",
     "payment",
-    "micuentaweb",
-    "netlify"
+    "netlify",
+    "functions"
   ],
   "author": "JurisCalc Team",
   "license": "MIT"

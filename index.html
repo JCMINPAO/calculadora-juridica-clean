@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)https://stellular-rugelach-f54861.netlify.app/ -->
+
 <html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora Jurídica Profesional</title>
-    <link href="./Calculadora Jurídica Profesional_files/all.min.css" rel="stylesheet">
-    <link href="./Calculadora Jurídica Profesional_files/css2" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
         * {
             margin: 0;
@@ -21,7 +20,6 @@
             min-height: 100vh;
         }
 
-        /* Header */
         header {
             background: rgba(255, 255, 255, 0.95);
             -webkit-backdrop-filter: blur(10px);
@@ -134,7 +132,6 @@
             display: none;
         }
 
-        /* Main Content */
         main {
             margin-top: 80px;
             padding: 2rem 0;
@@ -146,7 +143,6 @@
             padding: 0 2rem;
         }
 
-        /* Hero Section */
         .hero {
             position: relative;
             text-align: center;
@@ -155,7 +151,6 @@
             overflow: hidden;
         }
 
-        /* App Design Background */
         .hero::before {
             content: '';
             position: absolute;
@@ -1344,7 +1339,7 @@
                                 <h3>Acceso por 1 Mes</h3>
                                 <div class="price">
                                     <span class="currency">S/</span>
-                                    <span class="amount">10</span>
+                                                                         <span class="amount">10.00</span>
                                     <span class="period">pago único</span>
                                 </div>
                             </div>
@@ -1358,7 +1353,7 @@
                                     <li><i class="fas fa-info-circle"></i> Renovación manual al vencer</li>
                                 </ul>
                             </div>
-                            <button class="pricing-button" onclick="addToCart('Acceso por 1 Mes', 10)">
+                                                         <button class="pricing-button" onclick="addToCart('Acceso por 1 Mes', 10.00)">
                                 <i class="fas fa-credit-card"></i>
                                 Comprar Acceso
                             </button>
@@ -1370,7 +1365,7 @@
                                 <h3>Acceso por 1 Año</h3>
                                 <div class="price">
                                     <span class="currency">S/</span>
-                                    <span class="amount">99</span>
+                                                                         <span class="amount">99.00</span>
                                     <span class="period">pago único</span>
                                 </div>
                                 <div class="savings">Ahorras S/ 21 vs compras mensuales</div>
@@ -1387,37 +1382,14 @@
                                     <li><i class="fas fa-info-circle"></i> Renovación manual al vencer</li>
                                 </ul>
                             </div>
-                            <button class="pricing-button featured" onclick="addToCart('Acceso por 1 Año', 99)">
+                                                         <button class="pricing-button featured" onclick="addToCart('Acceso por 1 Año', 99.00)">
                                 <i class="fas fa-star"></i>
                                 Comprar Acceso
                             </button>
                         </div>
                 </div>
                 
-                <!-- Botones de prueba para desarrollo local -->
-                <div style="margin: 2rem 0; padding: 1.5rem; background: #f8f9fa; border-radius: 15px; border: 2px dashed #dee2e6; text-align: center;">
-                    <h4 style="color: #6c757d; margin-bottom: 1rem;">🧪 Herramientas de Prueba (Solo Desarrollo Local)</h4>
-                    <p style="color: #6c757d; margin-bottom: 1rem; font-size: 0.9rem;">
-                        Usa estos botones para probar el sistema sin necesidad de configurar Izipay
-                    </p>
-                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center;">
-                        <button onclick="testLocalAccess()" style="padding: 0.75rem 1.5rem; background: #28a745; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;">
-                            🧪 Probar Acceso
-                        </button>
-                        <button onclick="showCurrentStatus()" style="padding: 0.75rem 1.5rem; background: #17a2b8; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;">
-                            📊 Estado Actual
-                        </button>
-                        <button onclick="simulateCompletePayment()" style="padding: 0.75rem 1.5rem; background: #ffc107; color: #212529; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;">
-                            🎭 Simular Pago
-                        </button>
-                        <button onclick="clearAllData()" style="padding: 0.75rem 1.5rem; background: #dc3545; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 0.9rem; font-weight: 600;">
-                            🗑️ Limpiar Datos
-                        </button>
-                    </div>
-                    <p style="font-size: 0.8rem; color: #6c757d; margin-top: 1rem;">
-                        ⚠️ Estos botones solo están disponibles para desarrollo y pruebas locales
-                    </p>
-                </div>
+
 
             </div>
         </section>
@@ -1515,22 +1487,10 @@
             </div>
             
             <div class="cart-items" id="cartItems">
-                    <div class="cart-item">
-                        <div>
-                            <strong>Acceso por 1 Año</strong>
-                            <br>
-                            <small>S/ 99.00 x 1</small>
-                        </div>
-                        <div>
-                            <strong>S/ 99.00</strong>
-                            <button onclick="removeFromCart(0)" style="background: none; border: none; color: #e74c3c; cursor: pointer; margin-left: 10px;">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <!-- El contenido del carrito se genera dinámicamente con JavaScript -->
+            </div>
             
-            <div class="cart-total" id="cartTotal">Total: S/ 99.00</div>
+            <div class="cart-total" id="cartTotal">Total: S/ 0.00</div>
 
             <div class="payment-methods">
                 <h4 class="payment-title">Método de Pago</h4>
@@ -1554,27 +1514,22 @@
     </div>
 
     <script>
-        // Cart functionality
         let cart = JSON.parse(localStorage.getItem('juriscalcCart')) || [];
         let selectedPayment = null;
 
         function addToCart(name, price) {
-            // Validar si ya hay un plan de acceso en el carrito
             const isSubscription = name.includes('Acceso por');
             const existingSubscription = cart.find(item => item.name.includes('Acceso por'));
             
-            // Si es un plan de acceso y ya existe uno diferente, preguntar si reemplazar
             if (isSubscription && existingSubscription && existingSubscription.name !== name) {
                 if (confirm('Ya tienes un plan de acceso en el carrito. ¿Deseas reemplazarlo con este nuevo plan?')) {
-                    // Remover el plan anterior
                     const index = cart.findIndex(item => item.name.includes('Acceso por'));
                     cart.splice(index, 1);
                 } else {
-                    return; // Cancelar la operación
+                    return;
                 }
             }
             
-            // Si es un plan de acceso y ya existe el mismo plan, no permitir duplicados
             if (isSubscription && existingSubscription && existingSubscription.name === name) {
                 showNotification('Este plan ya está en tu carrito. Solo puedes tener un plan de acceso a la vez.');
                 return;
@@ -1592,12 +1547,10 @@
                 });
             }
             
-            // Guardar en localStorage
             localStorage.setItem('juriscalcCart', JSON.stringify(cart));
             
             updateCartDisplay();
             
-            // Mostrar notificación específica para pago único
             const message = isSubscription 
                 ? `${name} agregado al carrito - Pago único de S/ ${price.toFixed(2)}`
                 : `${name} agregado al carrito - S/ ${price.toFixed(2)}`;
@@ -1619,7 +1572,8 @@
             let total = 0;
             
             cart.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
+                const quantity = item.quantity || 1;
+                const itemTotal = item.price * quantity;
                 total += itemTotal;
                 
                 cartItems.innerHTML += `
@@ -1627,7 +1581,7 @@
                         <div>
                             <strong>${item.name}</strong>
                             <br>
-                            <small>S/ ${item.price.toFixed(2)} x ${item.quantity}</small>
+                            <small>S/ ${item.price.toFixed(2)} x ${quantity}</small>
                         </div>
                         <div>
                             <strong>S/ ${itemTotal.toFixed(2)}</strong>
@@ -1662,12 +1616,10 @@
         function selectPayment(method) {
             selectedPayment = method;
             
-            // Remove previous selections
             document.querySelectorAll('.payment-option').forEach(option => {
                 option.classList.remove('selected');
             });
             
-            // Add selection to clicked option
             event.currentTarget.classList.add('selected');
         }
 
@@ -1686,7 +1638,6 @@
             
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             
-            // Validar monto mínimo
             if (total < 1) {
                 alert('El monto mínimo para el pago es S/ 1.00');
                 return;
@@ -1699,9 +1650,118 @@
                                  `\n\n✅ IMPORTANTE: Este es un pago único. No habrá cobros recurrentes.`;
             
             if (confirm(confirmMessage)) {
-                // Usar el sistema unificado de Netlify Functions para todos los métodos de pago
                 initializePaymentForm(total);
             }
+        }
+
+        function initializePaymentForm(total) {
+            console.log('🚀 Iniciando formulario de pago para:', total);
+            
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+            
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                padding: 2rem;
+                border-radius: 10px;
+                max-width: 500px;
+                width: 90%;
+                text-align: center;
+            `;
+            
+            modalContent.innerHTML = `
+                <h3>💳 Procesando Pago</h3>
+                <p>Será redirigido al sistema de pagos seguro de Izipay.</p>
+                <div style="margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                    <p><strong>Monto:</strong> S/ ${total.toFixed(2)}</p>
+                    <p><strong>Método:</strong> ${selectedPayment === 'yape' ? 'Yape' : 'Transferencia Bancaria'}</p>
+                    <p><strong>Proceso:</strong> Automático y seguro</p>
+                </div>
+                <button id="proceed-payment" style="width: 100%; padding: 12px; background: linear-gradient(45deg, #667eea, #764ba2); color: white; border: none; border-radius: 4px; font-weight: bold; cursor: pointer;">Proceder al Pago</button>
+            `;
+            
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+            
+            // Agregar evento al botón de proceder
+            setTimeout(() => {
+                document.getElementById('proceed-payment').addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                    processPaymentWithIzipay(total);
+                });
+            }, 100);
+            
+            // Botón para cerrar el modal
+            const closeButton = document.createElement('button');
+            closeButton.textContent = 'Cancelar';
+            closeButton.style.cssText = `
+                margin-top: 1rem;
+                padding: 0.5rem 1rem;
+                background: #f44336;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            `;
+            closeButton.onclick = function() {
+                document.body.removeChild(modal);
+            };
+            modalContent.appendChild(closeButton);
+        }
+        
+        // Función para procesar pago con Izipay
+        function processPaymentWithIzipay(total) {
+            const orderId = 'JURISCALC_' + Date.now();
+            const amountInCents = Math.round(total * 100);
+            
+            // Crear datos del pago
+            const paymentData = {
+                amount: amountInCents,
+                currency: 'PEN',
+                orderId: orderId,
+                customer: {
+                    email: 'cliente@example.com',
+                    firstName: 'Cliente',
+                    lastName: 'JurisCalc'
+                },
+                paymentMethods: selectedPayment === 'yape' ? ['YAPE'] : ['BANK_TRANSFER']
+            };
+            
+            // Llamar a Netlify Function
+            fetch('/.netlify/functions/generate-token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(paymentData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.token) {
+                    console.log('✅ Token generado:', data.token);
+                    showNotification('Pago iniciado correctamente');
+                    // Aquí redirigirías a Izipay con el token
+                } else {
+                    console.error('❌ Error generando token:', data.message || 'Error desconocido');
+                    showNotification('Error al iniciar el pago');
+                }
+            })
+            .catch(error => {
+                console.error('❌ Error en pago:', error);
+                showNotification('Error al conectar con el servidor');
+            });
         }
 
         function processOtherPayment(amount) {
@@ -1766,7 +1826,7 @@
                 setTimeout(() => {
                      document.getElementById('proceed-transfer').addEventListener('click', function() {
                          document.body.removeChild(modal);
-                         redirectToYape(amount); // Usar el mismo sistema que Yape para transferencias
+                         processPaymentWithIzipay(amount); // Usar el mismo sistema que Yape para transferencias
                     });
                 }, 100);
             }
@@ -1923,8 +1983,6 @@
             updateCartDisplay();
             handlePaymentReturn();
             checkCartIcon();
-            testMiCuentaWebConnection(); // Probar conexión con MiCuentaWeb
-
         });
 
         // Verificar si el ícono del carrito se muestra correctamente
@@ -2092,92 +2150,7 @@
         `;
         document.head.appendChild(style);
 
-        // ===== FUNCIONES DE PRUEBA PARA DESARROLLO LOCAL =====
-        
-        // Función para probar acceso local
-        function testLocalAccess() {
-            console.log('🧪 Probando acceso local...');
-            
-            // Crear un plan de prueba
-            const testPlan = {
-                name: 'Plan de Prueba Local',
-                price: 29.99,
-                purchaseDate: new Date().toISOString(),
-                expiryDate: new Date(Date.now() + (30 * 24 * 60 * 60 * 1000)).toISOString(), // 30 días
-                customerEmail: 'test@local.com',
-                customerName: 'Usuario de Prueba',
-                transactionId: 'TEST_TXN_' + Date.now(),
-                paymentMethod: 'test_local'
-            };
-            
-            localStorage.setItem('juriscalcActivePlan', JSON.stringify(testPlan));
-            
-            console.log('✅ Plan de prueba creado:', testPlan);
-            showNotification('🧪 Plan de prueba activado por 30 días', 'success');
-            
-            // Verificar acceso
-            setTimeout(() => {
-                const hasAccess = checkAccess();
-                console.log('🔍 ¿Tiene acceso?', hasAccess);
-                showNotification(`🔍 Verificación: ${hasAccess ? '✅ Acceso activo' : '❌ Sin acceso'}`, hasAccess ? 'success' : 'error');
-            }, 1000);
-        }
 
-        // Función para mostrar estado actual
-        function showCurrentStatus() {
-            console.log('📊 Estado actual del sistema:');
-            
-            const activePlan = localStorage.getItem('juriscalcActivePlan');
-            const cartItems = localStorage.getItem('juriscalcCart');
-            
-            console.log('📋 Plan activo:', activePlan ? JSON.parse(activePlan) : 'Ninguno');
-            console.log('🛒 Carrito:', cartItems ? JSON.parse(cartItems) : 'Vacío');
-            console.log('🌐 Hostname:', window.location.hostname);
-            console.log('🔗 URL completa:', window.location.href);
-            
-            showNotification('📊 Estado mostrado en consola', 'info');
-        }
-
-        // Función para limpiar todo (solo desarrollo)
-        function clearAllData() {
-            if (confirm('¿Estás seguro de que quieres limpiar todos los datos? (Solo para desarrollo)')) {
-                localStorage.removeItem('juriscalcActivePlan');
-                localStorage.removeItem('juriscalcCart');
-                localStorage.removeItem('juriscalcPendingPayments');
-                
-                cart = [];
-                updateCartDisplay();
-                
-                showNotification('🗑️ Todos los datos han sido limpiados', 'success');
-                console.log('🧹 Datos limpiados para desarrollo');
-            }
-        }
-
-        // Función para simular pago completo
-        function simulateCompletePayment() {
-            console.log('🎭 Simulando pago completo...');
-            
-            // Agregar item al carrito
-            const testItem = {
-                id: 'test_plan',
-                name: 'Acceso por 1 Mes',
-                price: 29.99,
-                days: 30
-            };
-            
-            cart = [testItem];
-            localStorage.setItem('juriscalcCart', JSON.stringify(cart));
-            updateCartDisplay();
-            
-            showNotification('🛒 Item agregado al carrito para prueba', 'info');
-            
-            // Simular checkout
-            setTimeout(() => {
-                checkout();
-            }, 1000);
-        }
-
-        // ===== FIN FUNCIONES DE PRUEBA =====
     </script>
     
 
