@@ -1739,8 +1739,11 @@
                 paymentMethods: selectedPayment === 'yape' ? ['YAPE'] : ['BANK_TRANSFER']
             };
             
-            // Llamar a Netlify Function
-            fetch('/.netlify/functions/generate-token', {
+            // Mostrar loading
+            showNotification('Conectando con Izipay...');
+            
+            // Llamar a la función real de Izipay
+            fetch('/.netlify/functions/create-payment', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -1749,18 +1752,23 @@
             })
             .then(response => response.json())
             .then(data => {
-                if (data.token) {
-                    console.log('✅ Token generado:', data.token);
-                    showNotification('Pago iniciado correctamente');
-                    // Aquí redirigirías a Izipay con el token
+                if (data.status === 'success' && data.paymentUrl) {
+                    console.log('✅ Pago creado en Izipay:', data.transactionId);
+                    showNotification('Redirigiendo a Izipay...');
+                    
+                    // Redirigir al usuario a Izipay para completar el pago
+                    setTimeout(() => {
+                        window.location.href = data.paymentUrl;
+                    }, 1500);
+                    
                 } else {
-                    console.error('❌ Error generando token:', data.message || 'Error desconocido');
-                    showNotification('Error al iniciar el pago');
+                    console.error('❌ Error creando pago:', data.error || 'Error desconocido');
+                    showNotification('Error al crear el pago: ' + (data.error || 'Error desconocido'));
                 }
             })
             .catch(error => {
                 console.error('❌ Error en pago:', error);
-                showNotification('Error al conectar con el servidor');
+                showNotification('Error al conectar con Izipay');
             });
         }
 
