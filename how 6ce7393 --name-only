@@ -1,5 +1,0 @@
-[33m6cf83f0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m  Remover comando de build problemático de netlify.toml
-[33m74989e8[m  Corregir script de build para Netlify
-[33ma1269e0[m  Limpiar código obsoleto: remover MiCuentaWeb y krypton-client del frontend
-[33me785005[m  Remover credenciales sensibles del frontend y limpiar código
-[33m6ce7393[m Initial commit: JurisCalc payment system with Izipay integration
