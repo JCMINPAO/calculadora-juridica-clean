@@ -1740,7 +1740,7 @@
             };
             
             // Mostrar loading
-            showNotification('Conectando con Izipay...');
+            showNotification('Conectando con Izipay...', 'info');
             
             // Llamar a la función real de Izipay
             fetch('/.netlify/functions/create-payment', {
@@ -1754,21 +1754,26 @@
             .then(data => {
                 if (data.status === 'success' && data.paymentUrl) {
                     console.log('✅ Pago creado en Izipay:', data.transactionId);
-                    showNotification('Redirigiendo a Izipay...');
+                    console.log('🔗 URL de pago:', data.paymentUrl);
                     
-                    // Redirigir al usuario a Izipay para completar el pago
+                    // Mostrar notificación de redirección
+                    showNotification('Redirigiendo a Izipay para completar el pago...', 'success');
+                    
+                    // Redirigir inmediatamente al usuario a Izipay
                     setTimeout(() => {
+                        console.log('🚀 Redirigiendo a:', data.paymentUrl);
+                        console.log('📍 URL completa:', data.paymentUrl);
                         window.location.href = data.paymentUrl;
-                    }, 1500);
+                    }, 1500); // 1.5 segundos para que vea la notificación
                     
                 } else {
                     console.error('❌ Error creando pago:', data.error || 'Error desconocido');
-                    showNotification('Error al crear el pago: ' + (data.error || 'Error desconocido'));
+                    showNotification('Error al crear el pago: ' + (data.error || 'Error desconocido'), 'error');
                 }
             })
             .catch(error => {
                 console.error('❌ Error en pago:', error);
-                showNotification('Error al conectar con Izipay');
+                showNotification('Error al conectar con Izipay', 'error');
             });
         }
 
@@ -1951,30 +1956,54 @@
             }, 1000);
         }
 
-                 function showNotification(message, type = 'success') {
+                         function showNotification(message, type = 'success') {
             // Create notification element
             const notification = document.createElement('div');
-             const backgroundColor = type === 'error' ? '#e74c3c' : '#27ae60';
-             
+            
+            // Definir colores y duración según el tipo
+            let backgroundColor;
+            let duration;
+            
+            switch(type) {
+                case 'error':
+                    backgroundColor = '#e74c3c';
+                    duration = 4000;
+                    break;
+                case 'warning':
+                    backgroundColor = '#f39c12';
+                    duration = 3000;
+                    break;
+                case 'info':
+                    backgroundColor = '#3498db';
+                    duration = 2000; // Más corta para no interferir
+                    break;
+                default: // success
+                    backgroundColor = '#27ae60';
+                    duration = 3000;
+            }
+            
             notification.style.cssText = `
                 position: fixed;
                 top: 100px;
                 right: 20px;
-                 background: ${backgroundColor};
+                background: ${backgroundColor};
                 color: white;
                 padding: 1rem 2rem;
                 border-radius: 10px;
                 z-index: 3000;
                 animation: slideIn 0.3s ease;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             `;
             notification.textContent = message;
             
             document.body.appendChild(notification);
             
-            // Remove after 3 seconds
+            // Remove after el tiempo especificado
             setTimeout(() => {
-                notification.remove();
-            }, 3000);
+                if (notification.parentNode) {
+                    notification.remove();
+                }
+            }, duration);
         }
 
 
