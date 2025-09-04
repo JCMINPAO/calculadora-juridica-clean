@@ -110,12 +110,13 @@ exports.handler = async (event, context) => {
       }
     );
 
-    console.log('✅ CREATE-PAYMENT: Respuesta exitosa de Izipay:', {
-      orderId: orderId,
-      transactionId: response.data.transactionId || response.data.id,
-      status: response.data.status,
-      paymentUrl: response.data.paymentUrl || response.data.redirectUrl
-    });
+    console.log('✅ CREATE-PAYMENT: Respuesta completa de Izipay:', response.data);
+    console.log('✅ CREATE-PAYMENT: Campos disponibles:', Object.keys(response.data));
+    console.log('✅ CREATE-PAYMENT: Status:', response.data.status);
+    console.log('✅ CREATE-PAYMENT: PaymentUrl:', response.data.paymentUrl);
+    console.log('✅ CREATE-PAYMENT: RedirectUrl:', response.data.redirectUrl);
+    console.log('✅ CREATE-PAYMENT: FormToken:', response.data.formToken);
+    console.log('✅ CREATE-PAYMENT: Answer:', response.data.answer);
 
     // Retornar respuesta exitosa
     return {
