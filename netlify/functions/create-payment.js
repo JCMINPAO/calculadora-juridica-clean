@@ -63,20 +63,8 @@ exports.handler = async (event, context) => {
       orderId: orderId,
       formAction: 'PAYMENT',
       customer: {
-        email: customer.email,
-        firstName: customer.firstName || 'Cliente',
-        lastName: customer.lastName || 'JurisCalc'
-      },
-      paymentMethods: paymentMethods || ['BANK_TRANSFER'],
-      returnUrl: config.returnUrl || `${process.env.URL}/payment-success`,
-      cancelUrl: config.cancelUrl || `${process.env.URL}/payment-cancel`,
-      webhookUrl: config.webhookUrl || `${process.env.URL}/.netlify/functions/webhook`,
-      merchantId: config.merchantId,
-      mode: config.environment === 'production' ? 'PRODUCTION' : 'TEST',
-      description: `Acceso JurisCalc - ${orderId}`,
-      captureMode: 'AUTHOR_CAPTURE',
-      paymentSource: 'EC',
-      contractNumber: '0000001'
+        email: customer.email
+      }
     };
 
     // Generar firma de seguridad
@@ -109,6 +97,15 @@ exports.handler = async (event, context) => {
       }
     );
 
+    
+    // Log de respuesta para debug
+    console.log('📋 DEBUG: Respuesta de Izipay:', {
+      status: response.data.status,
+      statusCode: response.status,
+      hasAnswer: !!response.data.answer,
+      errorCode: response.data.answer?.errorCode,
+      errorMessage: response.data.answer?.errorMessage
+    });
     
     // Verificar si hay error en la respuesta
     if (response.data.status === 'ERROR') {
