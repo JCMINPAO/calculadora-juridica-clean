@@ -110,13 +110,26 @@ exports.handler = async (event, context) => {
       }
     );
 
-    console.log('✅ CREATE-PAYMENT: Respuesta completa de Izipay:', response.data);
-    console.log('✅ CREATE-PAYMENT: Campos disponibles:', Object.keys(response.data));
-    console.log('✅ CREATE-PAYMENT: Status:', response.data.status);
-    console.log('✅ CREATE-PAYMENT: PaymentUrl:', response.data.paymentUrl);
-    console.log('✅ CREATE-PAYMENT: RedirectUrl:', response.data.redirectUrl);
-    console.log('✅ CREATE-PAYMENT: FormToken:', response.data.formToken);
-    console.log('✅ CREATE-PAYMENT: Answer:', response.data.answer);
+    console.log('✅ CREATE-PAYMENT: Respuesta completa de Izipay:', JSON.stringify(response.data, null, 2));
+    console.log('✅ CREATE-PAYMENT: Status code:', response.status);
+    console.log('✅ CREATE-PAYMENT: Headers:', response.headers);
+    
+    // Verificar si hay error en la respuesta
+    if (response.data.status === 'ERROR') {
+      console.log('❌ CREATE-PAYMENT: Error de Izipay:', response.data);
+      return {
+        statusCode: 400,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+        body: JSON.stringify({
+          error: "Error de Izipay",
+          details: response.data,
+          timestamp: new Date().toISOString()
+        })
+      };
+    }
 
     // Retornar respuesta exitosa
     return {
