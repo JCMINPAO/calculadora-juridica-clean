@@ -82,7 +82,7 @@ exports.handler = async (event, context) => {
           message: "Estado de pago desconocido",
           transactionId: webhookBody.transactionId,
           orderId: webhookBody.orderId,
-          status: webhookBody.status,
+          paymentStatus: webhookBody.status,
           timestamp: new Date().toISOString()
         };
         
