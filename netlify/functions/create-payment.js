@@ -68,7 +68,7 @@ exports.handler = async (event, context) => {
         firstName: customer.firstName,
         lastName: customer.lastName
       },
-      paymentMethods: paymentMethods || ['YAPE', 'BANK_TRANSFER'],
+      paymentMethods: paymentMethods || ['BANK_TRANSFER'],
       returnUrl: config.returnUrl || 'https://polite-belekoy-971f16.netlify.app/payment-success',
       cancelUrl: config.cancelUrl || 'https://polite-belekoy-971f16.netlify.app/payment-cancel',
       webhookUrl: config.webhookUrl || 'https://polite-belekoy-971f16.netlify.app/.netlify/functions/webhook',
