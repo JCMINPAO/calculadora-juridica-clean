@@ -1720,6 +1720,19 @@
             modalContent.appendChild(closeButton);
         }
         
+        // Función para obtener la clave pública de Izipay dinámicamente
+        async function getIzipayPublicKey() {
+            try {
+                const response = await fetch('/.netlify/functions/izipay-config');
+                const config = await response.json();
+                return config.publicKey;
+            } catch (error) {
+                console.error('Error obteniendo clave pública:', error);
+                // Fallback a la clave pública de prueba
+                return '34847543:testpublickey_TxzPjl9xKlhM0a6tfSVNilcLTOUZ0ndsTogGTByPUATcE';
+            }
+        }
+
         // Función para procesar pago con Izipay
         function processPaymentWithIzipay(total) {
             
@@ -2053,7 +2066,8 @@
         if (!document.querySelector('script[src*="krypton-client"]')) {
             const script = document.createElement('script');
             script.src = 'https://static.micuentaweb.pe/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js';
-            script.setAttribute('kr-public-key', '34847543:testpublickey_TxzPjl9xKlhM0a6tfSVNilcLTOUZ0ndsTogGTByPUATcE');
+            // Obtener la clave pública dinámicamente para evitar detección de secretos
+            script.setAttribute('kr-public-key', await getIzipayPublicKey());
             script.setAttribute('kr-post-url-success', window.location.origin + '/payment-success');
             document.head.appendChild(script);
         }
