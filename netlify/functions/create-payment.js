@@ -41,15 +41,83 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // SIMULACIÓN TEMPORAL - Generar URL de pago de prueba
-    console.log('🧪 CREATE-PAYMENT: Generando URL de pago de prueba...');
-    
-    // URL de prueba temporal (sin credenciales hardcodeadas)
-    const testPaymentUrl = `https://test-payment.example.com/pay/${orderId}_${Date.now()}`;
-    
-    console.log('✅ CREATE-PAYMENT: URL de pago generada:', testPaymentUrl);
+    // Verificar que las credenciales estén configuradas
+    if (!config.apiKey || !config.secretKey) {
+      console.log('❌ CREATE-PAYMENT: Credenciales no configuradas');
+      return {
+        statusCode: 500,
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        },
+        body: JSON.stringify({ 
+          error: "Credenciales de Izipay no configuradas",
+          details: "Verificar variables de entorno IZIPAY_API_KEY e IZIPAY_SECRET_KEY"
+        })
+      };
+    }
 
-    // Retornar respuesta exitosa con URL de prueba
+    // Crear payload para Izipay
+    const paymentPayload = {
+      amount: amount, // en centavos
+      currency: currency || 'PEN',
+      orderId: orderId,
+      customer: {
+        email: customer.email,
+        firstName: customer.firstName,
+        lastName: customer.lastName
+      },
+      paymentMethods: paymentMethods || ['YAPE', 'BANK_TRANSFER'],
+      returnUrl: config.returnUrl || 'https://polite-belekoy-971f16.netlify.app/payment-success',
+      cancelUrl: config.cancelUrl || 'https://polite-belekoy-971f16.netlify.app/payment-cancel',
+      webhookUrl: config.webhookUrl || 'https://polite-belekoy-971f16.netlify.app/.netlify/functions/webhook',
+      merchantId: config.merchantId,
+      environment: config.environment || 'sandbox',
+      description: `Acceso JurisCalc - ${orderId}`,
+      metadata: {
+        source: 'JurisCalc Web',
+        version: '1.0',
+        environment: config.environment || 'sandbox'
+      }
+    };
+
+    // Generar firma de seguridad
+    const signature = generateSignature(paymentPayload, config.secretKey);
+
+    // Headers para la API de Izipay
+    const headers = {
+      'Authorization': `Basic ${Buffer.from(`${config.apiKey}:${config.secretKey}`).toString('base64')}`,
+      'Content-Type': 'application/json',
+      'X-Signature': signature,
+      'User-Agent': 'JurisCalc/1.0',
+      'Accept': 'application/json'
+    };
+
+    console.log('🧪 CREATE-PAYMENT: Enviando pago a Izipay:', {
+      url: `${config.baseUrl}/api-payment/v4/Charge/CreatePayment`,
+      orderId: orderId,
+      amount: amount,
+      environment: config.environment
+    });
+
+    // Llamar a la API real de Izipay
+    const response = await axios.post(
+      `${config.baseUrl}/api-payment/v4/Charge/CreatePayment`,
+      paymentPayload,
+      { 
+        headers,
+        timeout: 30000
+      }
+    );
+
+    console.log('✅ CREATE-PAYMENT: Respuesta exitosa de Izipay:', {
+      orderId: orderId,
+      transactionId: response.data.transactionId || response.data.id,
+      status: response.data.status,
+      paymentUrl: response.data.paymentUrl || response.data.redirectUrl
+    });
+
+    // Retornar respuesta exitosa
     return {
       statusCode: 200,
       headers: {
@@ -59,13 +127,11 @@ exports.handler = async (event, context) => {
       },
       body: JSON.stringify({
         status: "success",
-        paymentUrl: testPaymentUrl,
-        transactionId: `TEST_${orderId}_${Date.now()}`,
+        paymentUrl: response.data.paymentUrl || response.data.redirectUrl,
+        transactionId: response.data.transactionId || response.data.id,
         orderId: orderId,
-        message: "Pago de prueba creado exitosamente - MODO SIMULACIÓN",
-        environment: "test",
-        mode: "simulation",
-        note: "Esta es una simulación - URL de prueba generada",
+        message: "Pago creado exitosamente en Izipay",
+        environment: config.environment,
         timestamp: new Date().toISOString()
       })
     };
@@ -80,8 +146,9 @@ exports.handler = async (event, context) => {
         "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify({ 
-        error: "Error interno del servidor",
-        details: error.message,
+        error: "Error creando pago en Izipay",
+        details: error.response?.data?.message || error.message,
+        statusCode: error.response?.status,
         timestamp: new Date().toISOString()
       })
     };
