@@ -57,7 +57,7 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Crear payload para Izipay (formato oficial según documentación)
+    // Crear payload para Izipay (formato simplificado para evitar PSP_610)
     const paymentPayload = {
       amount: amount, // en centavos
       currency: currency || 'PEN',
@@ -74,11 +74,8 @@ exports.handler = async (event, context) => {
       webhookUrl: config.webhookUrl || 'https://polite-belekoy-971f16.netlify.app/.netlify/functions/webhook',
       merchantId: config.merchantId,
       mode: 'TEST',
-      description: `Acceso JurisCalc - ${orderId}`,
-      // Campos adicionales que podrían ser requeridos
-      captureMode: 'AUTHOR_CAPTURE',
-      paymentSource: 'EC',
-      contractNumber: '0000001'
+      description: `Acceso JurisCalc - ${orderId}`
+      // Removidos campos que podrían causar PSP_610
     };
 
     // Generar firma de seguridad
