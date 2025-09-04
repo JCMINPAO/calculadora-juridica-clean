@@ -94,7 +94,7 @@ exports.handler = async (event, context) => {
     };
 
     console.log('🧪 CREATE-PAYMENT: Enviando pago a Izipay:', {
-      url: `${config.baseUrl}/api-payment/v4/Charge/CreatePayment`,
+      url: `${config.baseUrl}/api-payment/V4/Charge/CreatePayment`,
       orderId: orderId,
       amount: amount,
       environment: config.environment
@@ -102,7 +102,7 @@ exports.handler = async (event, context) => {
 
     // Llamar a la API real de Izipay
     const response = await axios.post(
-      `${config.baseUrl}/api-payment/v4/Charge/CreatePayment`,
+      `${config.baseUrl}/api-payment/V4/Charge/CreatePayment`,
       paymentPayload,
       { 
         headers,
