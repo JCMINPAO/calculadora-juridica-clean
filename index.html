@@ -1772,27 +1772,29 @@
             .then(data => {
                 console.log('💳 PROCESS PAYMENT: Datos de respuesta:', data);
                 
-                if (data.status === 'success' && data.paymentUrl) {
+                if (data.status === 'success' && data.formToken) {
                     console.log('✅ Pago creado en Izipay:', data.transactionId);
-                    console.log('🔗 URL de pago:', data.paymentUrl);
+                    console.log('🔑 FormToken recibido:', data.formToken);
                     
-                    // Mostrar notificación de redirección
-                    console.log('💳 PROCESS PAYMENT: Mostrando notificación de redirección...');
+                    // Mostrar notificación de éxito
+                    showNotification('Formulario de pago generado correctamente', 'success');
+                    
+                    // Mostrar el formulario de pago de Izipay
+                    showIzipayPaymentForm(data.formToken);
+                    
+                } else if (data.status === 'success' && data.paymentUrl) {
+                    // Fallback para URL de pago (redirección)
+                    console.log('🔗 URL de pago:', data.paymentUrl);
                     showNotification('Redirigiendo a Izipay para completar el pago...', 'success');
                     
-                    // Redirigir inmediatamente al usuario a Izipay
-                    console.log('💳 PROCESS PAYMENT: Programando redirección en 1.5 segundos...');
                     setTimeout(() => {
-                        console.log('🚀 Redirigiendo a:', data.paymentUrl);
-                        console.log('📍 URL completa:', data.paymentUrl);
-                        console.log('💳 PROCESS PAYMENT: Ejecutando redirección...');
                         window.location.href = data.paymentUrl;
-                    }, 1500); // 1.5 segundos para que vea la notificación
+                    }, 1500);
                     
                 } else {
                     console.error('❌ Error creando pago:', data.error || 'Error desconocido');
                     console.error('💳 PROCESS PAYMENT: Status de respuesta:', data.status);
-                    console.error('💳 PROCESS PAYMENT: URL de pago:', data.paymentUrl);
+                    console.error('💳 PROCESS PAYMENT: FormToken:', data.formToken);
                     showNotification('Error al crear el pago: ' + (data.error || 'Error desconocido'), 'error');
                 }
             })
@@ -1982,6 +1984,71 @@
                       '📅 Recuerda: Renovación manual al vencer el período');
             }, 1000);
         }
+
+    // Función para mostrar el formulario de pago de Izipay
+    function showIzipayPaymentForm(formToken) {
+        console.log('🎨 Mostrando formulario de pago de Izipay con formToken:', formToken);
+        
+        // Crear el HTML del formulario de Izipay
+        const izipayFormHTML = `
+            <div id="izipay-payment-modal" style="
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                z-index: 10000;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            ">
+                <div style="
+                    background: white;
+                    padding: 20px;
+                    border-radius: 10px;
+                    max-width: 90%;
+                    max-height: 90%;
+                    overflow: auto;
+                ">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <h3 style="margin: 0; color: #333;">Completar Pago</h3>
+                        <button onclick="closeIzipayForm()" style="
+                            background: #ff4444;
+                            color: white;
+                            border: none;
+                            padding: 8px 12px;
+                            border-radius: 5px;
+                            cursor: pointer;
+                        ">✕ Cerrar</button>
+                    </div>
+                    
+                    <!-- Formulario de Izipay -->
+                    <div class="kr-embedded" kr-form-token="${formToken}"></div>
+                </div>
+            </div>
+        `;
+        
+        // Agregar el formulario al body
+        document.body.insertAdjacentHTML('beforeend', izipayFormHTML);
+        
+        // Cargar la librería de Izipay si no está cargada
+        if (!document.querySelector('script[src*="krypton-client"]')) {
+            const script = document.createElement('script');
+            script.src = 'https://static.micuentaweb.pe/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js';
+            script.setAttribute('kr-public-key', '89289758:testpublickey_TxzPjl9xKlhM0a6tfSVNilcLTOUZ0ndsTogGTByPUATcE');
+            script.setAttribute('kr-post-url-success', window.location.origin + '/payment-success');
+            document.head.appendChild(script);
+        }
+    }
+    
+    // Función para cerrar el formulario de Izipay
+    function closeIzipayForm() {
+        const modal = document.getElementById('izipay-payment-modal');
+        if (modal) {
+            modal.remove();
+        }
+    }
 
                          function showNotification(message, type = 'success') {
             // Create notification element

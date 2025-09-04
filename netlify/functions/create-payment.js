@@ -120,7 +120,7 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Retornar respuesta exitosa
+    // Retornar respuesta exitosa con formToken
     return {
       statusCode: 200,
       headers: {
@@ -130,6 +130,7 @@ exports.handler = async (event, context) => {
       },
       body: JSON.stringify({
         status: "success",
+        formToken: response.data.formToken || response.data.answer?.formToken,
         paymentUrl: response.data.paymentUrl || response.data.redirectUrl,
         transactionId: response.data.transactionId || response.data.id,
         orderId: orderId,
