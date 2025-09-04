@@ -1771,10 +1771,14 @@
             })
             .then(data => {
                 console.log('💳 PROCESS PAYMENT: Datos de respuesta:', data);
+                console.log('💳 PROCESS PAYMENT: Status:', data.status);
+                console.log('💳 PROCESS PAYMENT: FormToken:', data.formToken);
+                console.log('💳 PROCESS PAYMENT: PaymentUrl:', data.paymentUrl);
                 
                 if (data.status === 'success' && data.formToken) {
                     console.log('✅ Pago creado en Izipay:', data.transactionId);
                     console.log('🔑 FormToken recibido:', data.formToken);
+                    console.log('🎨 Llamando a showIzipayPaymentForm...');
                     
                     // Mostrar notificación de éxito
                     showNotification('Formulario de pago generado correctamente', 'success');
