@@ -3,13 +3,10 @@ const crypto = require('crypto');
 const config = require('./izipay-config');
 
 exports.handler = async (event, context) => {
-  console.log('🚀 CREATE-PAYMENT: Función iniciada');
-  console.log('🚀 CREATE-PAYMENT: Event:', JSON.stringify(event, null, 2));
   
   try {
     // Verificar que sea una petición POST
     if (event.httpMethod !== "POST") {
-      console.log('❌ CREATE-PAYMENT: Método no permitido:', event.httpMethod);
       return {
         statusCode: 405,
         headers: {
@@ -24,20 +21,9 @@ exports.handler = async (event, context) => {
     const requestBody = JSON.parse(event.body);
     const { amount, currency, orderId, customer, paymentMethods } = requestBody;
     
-    console.log('🚀 CREATE-PAYMENT: Datos recibidos:', {
-      amount, currency, orderId, customer, paymentMethods
-    });
-    
-    // Log de credenciales para debugging (sin exponer secretos)
-    console.log('🔑 CREATE-PAYMENT: Credenciales configuradas:', {
-      apiKey: config.apiKey ? `${config.apiKey.substring(0, 8)}...` : 'NO_CONFIGURADA',
-      merchantId: config.merchantId,
-      environment: config.environment
-    });
 
     // Validar datos requeridos
     if (!amount || !orderId || !customer) {
-      console.log('❌ CREATE-PAYMENT: Datos incompletos');
       return {
         statusCode: 400,
         headers: {
@@ -50,7 +36,6 @@ exports.handler = async (event, context) => {
 
     // Verificar que las credenciales estén configuradas
     if (!config.apiKey || !config.secretKey) {
-      console.log('❌ CREATE-PAYMENT: Credenciales no configuradas');
       return {
         statusCode: 500,
         headers: {
@@ -87,14 +72,7 @@ exports.handler = async (event, context) => {
       'Accept': 'application/json'
     };
 
-    console.log('🧪 CREATE-PAYMENT: Enviando pago a Izipay:', {
-      url: `${config.baseUrl}/api-payment/V4/Charge/CreatePayment`,
-      orderId: orderId,
-      amount: amount,
-      environment: config.environment
-    });
     
-    console.log('🧪 CREATE-PAYMENT: Payload completo:', JSON.stringify(paymentPayload, null, 2));
 
     // Llamar a la API real de Izipay
     const response = await axios.post(
@@ -106,13 +84,9 @@ exports.handler = async (event, context) => {
       }
     );
 
-    console.log('✅ CREATE-PAYMENT: Respuesta completa de Izipay:', JSON.stringify(response.data, null, 2));
-    console.log('✅ CREATE-PAYMENT: Status code:', response.status);
-    console.log('✅ CREATE-PAYMENT: Headers:', response.headers);
     
     // Verificar si hay error en la respuesta
     if (response.data.status === 'ERROR') {
-      console.log('❌ CREATE-PAYMENT: Error de Izipay:', response.data);
       return {
         statusCode: 400,
         headers: {
@@ -148,7 +122,6 @@ exports.handler = async (event, context) => {
     };
 
   } catch (error) {
-    console.error("❌ CREATE-PAYMENT: Error:", error);
     
     return {
       statusCode: 500,

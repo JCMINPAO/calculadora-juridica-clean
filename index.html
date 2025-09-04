@@ -1646,7 +1646,7 @@
             const confirmMessage = `¿Confirmar pago único de S/ ${total.toFixed(2)}?\n\n` +
                                  `📋 Resumen de tu compra:\n` +
                                  cart.map(item => `• ${item.name} - S/ ${(item.price * item.quantity).toFixed(2)}`).join('\n') +
-                                 `\n\n💳 Método de pago: ${selectedPayment.toUpperCase()}` +
+                                 `\n\nMétodo de pago: ${selectedPayment === 'yape' ? 'Yape' : 'Transferencia Bancaria'}` +
                                  `\n\n✅ IMPORTANTE: Este es un pago único. No habrá cobros recurrentes.`;
             
             if (confirm(confirmMessage)) {
@@ -1655,7 +1655,6 @@
         }
 
         function initializePaymentForm(total) {
-            console.log('🚀 Iniciando formulario de pago para:', total);
             
             const modal = document.createElement('div');
             modal.style.cssText = `
@@ -1723,15 +1722,9 @@
         
         // Función para procesar pago con Izipay
         function processPaymentWithIzipay(total) {
-            console.log('💳 PROCESS PAYMENT: Iniciando procesamiento de pago...');
-            console.log('💳 PROCESS PAYMENT: Total:', total);
-            console.log('💳 PROCESS PAYMENT: Método de pago:', selectedPayment);
             
             const orderId = 'JURISCALC_' + Date.now();
             const amountInCents = Math.round(total * 100);
-            
-            console.log('💳 PROCESS PAYMENT: Order ID generado:', orderId);
-            console.log('💳 PROCESS PAYMENT: Monto en centavos:', amountInCents);
             
             // Crear datos del pago
             const paymentData = {
@@ -1746,14 +1739,8 @@
                 paymentMethods: selectedPayment === 'yape' ? ['YAPE'] : ['BANK_TRANSFER']
             };
             
-            console.log('💳 PROCESS PAYMENT: Datos del pago:', paymentData);
-            
             // Mostrar loading
-            console.log('💳 PROCESS PAYMENT: Mostrando notificación de conexión...');
             showNotification('Conectando con Izipay...', 'info');
-            
-            console.log('💳 PROCESS PAYMENT: Llamando a la función create-payment...');
-            console.log('💳 PROCESS PAYMENT: URL:', '/.netlify/functions/create-payment');
             
             // Llamar a la función real de Izipay
             fetch('/.netlify/functions/create-payment', {
@@ -1764,22 +1751,11 @@
                 body: JSON.stringify(paymentData)
             })
             .then(response => {
-                console.log('💳 PROCESS PAYMENT: Respuesta recibida:', response);
-                console.log('💳 PROCESS PAYMENT: Status:', response.status);
-                console.log('💳 PROCESS PAYMENT: Status text:', response.statusText);
                 return response.json();
             })
             .then(data => {
-                console.log('💳 PROCESS PAYMENT: Datos de respuesta:', data);
-                console.log('💳 PROCESS PAYMENT: Status:', data.status);
-                console.log('💳 PROCESS PAYMENT: FormToken:', data.formToken);
-                console.log('💳 PROCESS PAYMENT: PaymentUrl:', data.paymentUrl);
                 
                 if (data.status === 'success' && data.formToken) {
-                    console.log('✅ Pago creado en Izipay:', data.transactionId);
-                    console.log('🔑 FormToken recibido:', data.formToken);
-                    console.log('🎨 Llamando a showIzipayPaymentForm...');
-                    
                     // Mostrar notificación de éxito
                     showNotification('Formulario de pago generado correctamente', 'success');
                     
@@ -1788,7 +1764,6 @@
                     
                 } else if (data.status === 'success' && data.paymentUrl) {
                     // Fallback para URL de pago (redirección)
-                    console.log('🔗 URL de pago:', data.paymentUrl);
                     showNotification('Redirigiendo a Izipay para completar el pago...', 'success');
                     
                     setTimeout(() => {
@@ -1796,16 +1771,10 @@
                     }, 1500);
                     
                 } else {
-                    console.error('❌ Error creando pago:', data.error || 'Error desconocido');
-                    console.error('💳 PROCESS PAYMENT: Status de respuesta:', data.status);
-                    console.error('💳 PROCESS PAYMENT: FormToken:', data.formToken);
                     showNotification('Error al crear el pago: ' + (data.error || 'Error desconocido'), 'error');
                 }
             })
             .catch(error => {
-                console.error('❌ Error en pago:', error);
-                console.error('💳 PROCESS PAYMENT: Error completo:', error);
-                console.error('💳 PROCESS PAYMENT: Mensaje de error:', error.message);
                 showNotification('Error al conectar con Izipay', 'error');
             });
         }
@@ -1912,6 +1881,19 @@
                 };
                 
                 localStorage.setItem('juriscalcActivePlan', JSON.stringify(activePlan));
+                
+                // Limpiar carrito después de activar el plan
+                cart = [];
+                selectedPayment = null;
+                localStorage.removeItem('juriscalcCart');
+                localStorage.removeItem('juriscalcSelectedPayment');
+                updateCartDisplay();
+                
+                // Cerrar cualquier modal de pago abierto
+                const paymentModal = document.getElementById('izipay-payment-modal');
+                if (paymentModal) {
+                    paymentModal.remove();
+                }
             }
         }
 
@@ -1930,7 +1912,6 @@
              const activePlan = JSON.parse(localStorage.getItem('juriscalcActivePlan'));
              
              if (!activePlan) {
-                 console.log('❌ No hay plan activo');
                  return {
                      tieneAcceso: false,
                      mensaje: 'No tienes acceso activo'
@@ -1942,7 +1923,6 @@
              const diasRestantes = Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24));
              
              if (now < expiryDate) {
-                 console.log('✅ Acceso activo - Días restantes:', diasRestantes);
                  return {
                      tieneAcceso: true,
                      plan: activePlan.name,
@@ -1974,8 +1954,15 @@
             cart = [];
             selectedPayment = null;
             localStorage.removeItem('juriscalcCart');
+            localStorage.removeItem('juriscalcSelectedPayment');
             updateCartDisplay();
             toggleCart();
+            
+            // Cerrar cualquier modal de pago abierto
+            const paymentModal = document.getElementById('izipay-payment-modal');
+            if (paymentModal) {
+                paymentModal.remove();
+            }
             
             document.querySelectorAll('.payment-option').forEach(option => {
                 option.classList.remove('selected');
@@ -1991,7 +1978,6 @@
 
     // Función para mostrar el formulario de pago de Izipay
     function showIzipayPaymentForm(formToken) {
-        console.log('🎨 Mostrando formulario de pago de Izipay con formToken:', formToken);
         
         // Crear el HTML del formulario de Izipay
         const izipayFormHTML = `
@@ -2009,26 +1995,54 @@
             ">
                 <div style="
                     background: white;
-                    padding: 20px;
-                    border-radius: 10px;
-                    max-width: 90%;
+                    padding: 30px;
+                    border-radius: 15px;
+                    max-width: 500px;
+                    width: 90%;
                     max-height: 90%;
                     overflow: auto;
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                    border: 1px solid #e0e0e0;
                 ">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                        <h3 style="margin: 0; color: #333;">Completar Pago</h3>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #f0f0f0;">
+                        <h3 style="margin: 0; color: #2c3e50; font-size: 1.5rem; font-weight: 600;">💳 Completar Pago</h3>
                         <button onclick="closeIzipayForm()" style="
-                            background: #ff4444;
+                            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
                             color: white;
                             border: none;
-                            padding: 8px 12px;
-                            border-radius: 5px;
+                            padding: 10px 15px;
+                            border-radius: 8px;
                             cursor: pointer;
-                        ">✕ Cerrar</button>
+                            font-weight: bold;
+                            transition: all 0.3s ease;
+                            box-shadow: 0 2px 8px rgba(255,107,107,0.3);
+                        " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">✕ Cerrar</button>
+                    </div>
+                    
+                    <!-- Indicador de procesamiento -->
+                    <div id="payment-processing" style="
+                        text-align: center;
+                        padding: 20px;
+                        background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+                        border-radius: 10px;
+                        margin-bottom: 20px;
+                        border: 2px solid #dee2e6;
+                    ">
+                        <div style="font-size: 2rem; margin-bottom: 10px;">⏳</div>
+                        <p style="margin: 0; color: #495057; font-weight: 500;">Procesando pago seguro...</p>
+                        <p style="margin: 5px 0 0 0; color: #6c757d; font-size: 0.9rem;">Conectando con Izipay</p>
                     </div>
                     
                     <!-- Formulario de Izipay -->
-                    <div class="kr-embedded" kr-form-token="${formToken}"></div>
+                    <div class="kr-embedded" kr-form-token="${formToken}" style="
+                        opacity: 0;
+                        transition: opacity 0.5s ease;
+                    " onload="
+                        setTimeout(() => {
+                            this.style.opacity = '1';
+                            document.getElementById('payment-processing').style.display = 'none';
+                        }, 1000);
+                    "></div>
                 </div>
             </div>
         `;
