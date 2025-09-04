@@ -1723,8 +1723,15 @@
         
         // Función para procesar pago con Izipay
         function processPaymentWithIzipay(total) {
+            console.log('💳 PROCESS PAYMENT: Iniciando procesamiento de pago...');
+            console.log('💳 PROCESS PAYMENT: Total:', total);
+            console.log('💳 PROCESS PAYMENT: Método de pago:', selectedPayment);
+            
             const orderId = 'JURISCALC_' + Date.now();
             const amountInCents = Math.round(total * 100);
+            
+            console.log('💳 PROCESS PAYMENT: Order ID generado:', orderId);
+            console.log('💳 PROCESS PAYMENT: Monto en centavos:', amountInCents);
             
             // Crear datos del pago
             const paymentData = {
@@ -1739,8 +1746,14 @@
                 paymentMethods: selectedPayment === 'yape' ? ['YAPE'] : ['BANK_TRANSFER']
             };
             
+            console.log('💳 PROCESS PAYMENT: Datos del pago:', paymentData);
+            
             // Mostrar loading
+            console.log('💳 PROCESS PAYMENT: Mostrando notificación de conexión...');
             showNotification('Conectando con Izipay...', 'info');
+            
+            console.log('💳 PROCESS PAYMENT: Llamando a la función create-payment...');
+            console.log('💳 PROCESS PAYMENT: URL:', '/.netlify/functions/create-payment');
             
             // Llamar a la función real de Izipay
             fetch('/.netlify/functions/create-payment', {
@@ -1750,29 +1763,43 @@
                 },
                 body: JSON.stringify(paymentData)
             })
-            .then(response => response.json())
+            .then(response => {
+                console.log('💳 PROCESS PAYMENT: Respuesta recibida:', response);
+                console.log('💳 PROCESS PAYMENT: Status:', response.status);
+                console.log('💳 PROCESS PAYMENT: Status text:', response.statusText);
+                return response.json();
+            })
             .then(data => {
+                console.log('💳 PROCESS PAYMENT: Datos de respuesta:', data);
+                
                 if (data.status === 'success' && data.paymentUrl) {
                     console.log('✅ Pago creado en Izipay:', data.transactionId);
                     console.log('🔗 URL de pago:', data.paymentUrl);
                     
                     // Mostrar notificación de redirección
+                    console.log('💳 PROCESS PAYMENT: Mostrando notificación de redirección...');
                     showNotification('Redirigiendo a Izipay para completar el pago...', 'success');
                     
                     // Redirigir inmediatamente al usuario a Izipay
+                    console.log('💳 PROCESS PAYMENT: Programando redirección en 1.5 segundos...');
                     setTimeout(() => {
                         console.log('🚀 Redirigiendo a:', data.paymentUrl);
                         console.log('📍 URL completa:', data.paymentUrl);
+                        console.log('💳 PROCESS PAYMENT: Ejecutando redirección...');
                         window.location.href = data.paymentUrl;
                     }, 1500); // 1.5 segundos para que vea la notificación
                     
                 } else {
                     console.error('❌ Error creando pago:', data.error || 'Error desconocido');
+                    console.error('💳 PROCESS PAYMENT: Status de respuesta:', data.status);
+                    console.error('💳 PROCESS PAYMENT: URL de pago:', data.paymentUrl);
                     showNotification('Error al crear el pago: ' + (data.error || 'Error desconocido'), 'error');
                 }
             })
             .catch(error => {
                 console.error('❌ Error en pago:', error);
+                console.error('💳 PROCESS PAYMENT: Error completo:', error);
+                console.error('💳 PROCESS PAYMENT: Mensaje de error:', error.message);
                 showNotification('Error al conectar con Izipay', 'error');
             });
         }
