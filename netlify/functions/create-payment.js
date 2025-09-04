@@ -44,8 +44,8 @@ exports.handler = async (event, context) => {
     // SIMULACIÓN TEMPORAL - Generar URL de pago de prueba
     console.log('🧪 CREATE-PAYMENT: Generando URL de pago de prueba...');
     
-    // URL de prueba de Izipay (esto debería ser la URL real de Izipay)
-    const testPaymentUrl = `https://api.micuentaweb.pe/vads-payment/Test_${orderId}_${Date.now()}`;
+    // URL de prueba temporal (sin credenciales hardcodeadas)
+    const testPaymentUrl = `https://test-payment.example.com/pay/${orderId}_${Date.now()}`;
     
     console.log('✅ CREATE-PAYMENT: URL de pago generada:', testPaymentUrl);
 
