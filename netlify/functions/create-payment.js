@@ -57,11 +57,12 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // Crear payload para Izipay (formato simplificado)
+    // Crear payload para Izipay (formato oficial según documentación)
     const paymentPayload = {
       amount: amount, // en centavos
       currency: currency || 'PEN',
       orderId: orderId,
+      formAction: 'PAYMENT', // OBLIGATORIO según documentación oficial de Izipay
       customer: {
         email: customer.email,
         firstName: customer.firstName,
@@ -72,8 +73,12 @@ exports.handler = async (event, context) => {
       cancelUrl: config.cancelUrl || 'https://polite-belekoy-971f16.netlify.app/payment-cancel',
       webhookUrl: config.webhookUrl || 'https://polite-belekoy-971f16.netlify.app/.netlify/functions/webhook',
       merchantId: config.merchantId,
-      mode: 'TEST', // Usar 'mode' en lugar de 'environment'
-      description: `Acceso JurisCalc - ${orderId}`
+      mode: 'TEST',
+      description: `Acceso JurisCalc - ${orderId}`,
+      // Campos adicionales que podrían ser requeridos
+      captureMode: 'AUTHOR_CAPTURE',
+      paymentSource: 'EC',
+      contractNumber: '0000001'
     };
 
     // Generar firma de seguridad
