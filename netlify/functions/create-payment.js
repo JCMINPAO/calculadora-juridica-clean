@@ -73,7 +73,7 @@ exports.handler = async (event, context) => {
       cancelUrl: config.cancelUrl || 'https://polite-belekoy-971f16.netlify.app/payment-cancel',
       webhookUrl: config.webhookUrl || 'https://polite-belekoy-971f16.netlify.app/.netlify/functions/webhook',
       merchantId: config.merchantId,
-      mode: 'TEST',
+      mode: 'PRODUCTION',
       description: `Acceso JurisCalc - ${orderId}`
       // Removidos campos que podrían causar PSP_610
     };
