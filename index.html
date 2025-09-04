@@ -2019,36 +2019,35 @@
                         " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">✕ Cerrar</button>
                     </div>
                     
-                    <!-- Indicador de procesamiento -->
-                    <div id="payment-processing" style="
-                        text-align: center;
-                        padding: 20px;
-                        background: linear-gradient(45deg, #f8f9fa, #e9ecef);
-                        border-radius: 10px;
-                        margin-bottom: 20px;
-                        border: 2px solid #dee2e6;
-                    ">
-                        <div style="font-size: 2rem; margin-bottom: 10px;">⏳</div>
-                        <p style="margin: 0; color: #495057; font-weight: 500;">Procesando pago seguro...</p>
-                        <p style="margin: 5px 0 0 0; color: #6c757d; font-size: 0.9rem;">Conectando con Izipay</p>
-                    </div>
-                    
                     <!-- Formulario de Izipay -->
-                    <div class="kr-embedded" kr-form-token="${formToken}" style="
-                        opacity: 0;
-                        transition: opacity 0.5s ease;
-                    " onload="
-                        setTimeout(() => {
-                            this.style.opacity = '1';
-                            document.getElementById('payment-processing').style.display = 'none';
-                        }, 1000);
-                    "></div>
+                    <div class="kr-embedded" kr-form-token="${formToken}"></div>
                 </div>
             </div>
         `;
         
         // Agregar el formulario al body
         document.body.insertAdjacentHTML('beforeend', izipayFormHTML);
+        
+        // Mostrar indicador de carga temporal
+        const loadingIndicator = document.createElement('div');
+        loadingIndicator.id = 'izipay-loading';
+        loadingIndicator.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 10001;
+            text-align: center;
+        `;
+        loadingIndicator.innerHTML = `
+            <div style="font-size: 2rem; margin-bottom: 10px;">⏳</div>
+            <p style="margin: 0;">Cargando formulario de pago...</p>
+        `;
+        document.body.appendChild(loadingIndicator);
         
         // Cargar la librería de Izipay si no está cargada
         if (!document.querySelector('script[src*="krypton-client"]')) {
@@ -2058,13 +2057,26 @@
             script.setAttribute('kr-post-url-success', window.location.origin + '/payment-success');
             document.head.appendChild(script);
         }
+        
+        // Ocultar indicador de carga después de 3 segundos
+        setTimeout(() => {
+            const loading = document.getElementById('izipay-loading');
+            if (loading) {
+                loading.remove();
+            }
+        }, 3000);
     }
     
     // Función para cerrar el formulario de Izipay
     function closeIzipayForm() {
         const modal = document.getElementById('izipay-payment-modal');
+        const loading = document.getElementById('izipay-loading');
+        
         if (modal) {
             modal.remove();
+        }
+        if (loading) {
+            loading.remove();
         }
     }
 
