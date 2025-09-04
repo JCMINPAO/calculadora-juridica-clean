@@ -27,6 +27,13 @@ exports.handler = async (event, context) => {
     console.log('🚀 CREATE-PAYMENT: Datos recibidos:', {
       amount, currency, orderId, customer, paymentMethods
     });
+    
+    // Log de credenciales para debugging (sin exponer secretos)
+    console.log('🔑 CREATE-PAYMENT: Credenciales configuradas:', {
+      apiKey: config.apiKey ? `${config.apiKey.substring(0, 8)}...` : 'NO_CONFIGURADA',
+      merchantId: config.merchantId,
+      environment: config.environment
+    });
 
     // Validar datos requeridos
     if (!amount || !orderId || !customer) {
