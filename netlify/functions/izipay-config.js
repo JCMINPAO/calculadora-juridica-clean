@@ -5,7 +5,7 @@ module.exports = {
   secretKey: process.env.IZIPAY_SECRET_KEY,
   
   // URLs de Izipay
-  baseUrl: process.env.IZIPAY_BASE_URL || 'https://api.micuentaweb.pe',
+  baseUrl: process.env.IZIPAY_BASE_URL,
   
   // Configuracion del comercio
   merchantId: process.env.IZIPAY_MERCHANT_ID,
