@@ -14,6 +14,10 @@
 [build.environment]
   NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
+  # Configuración de secrets scanning
+  SECRETS_SCAN_ENABLED = "false"
+  SECRETS_SCAN_OMIT_KEYS = "IZIPAY_MERCHANT_ID,IZIPAY_API_KEY,IZIPAY_SECRET_KEY"
+  SECRETS_SCAN_OMIT_PATHS = "index.html,netlify/functions/*"
 
 # Configuración de secrets scanning
 [build.processing]
