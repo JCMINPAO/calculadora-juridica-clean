@@ -130,7 +130,7 @@ exports.handler = async (event, context) => {
       },
       body: JSON.stringify({
         status: "success",
-        formToken: response.data.formToken || response.data.answer?.formToken,
+        formToken: response.data.answer?.formToken || response.data.formToken,
         paymentUrl: response.data.paymentUrl || response.data.redirectUrl,
         transactionId: response.data.transactionId || response.data.id,
         orderId: orderId,
