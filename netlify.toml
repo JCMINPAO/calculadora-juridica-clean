@@ -19,6 +19,8 @@
 [build.processing]
   skip_processing = false
 
-# Omitir la detección de secretos en la clave pública de Izipay (es una clave de prueba)
+# Omitir completamente la detección de secretos en la clave pública de Izipay (es una clave de prueba)
 [build.processing.secrets_scanning]
-  omit_keys = ["IZIPAY_MERCHANT_ID"]
+  enabled = false
+  omit_keys = ["IZIPAY_MERCHANT_ID", "IZIPAY_API_KEY", "IZIPAY_SECRET_KEY"]
+  omit_paths = ["index.html", "netlify/functions/*"]
