@@ -35,6 +35,13 @@ exports.handler = async (event, context) => {
     }
 
     // Verificar que las credenciales estén configuradas
+    console.log('🔍 DEBUG: Verificando credenciales...', {
+      hasApiKey: !!config.apiKey,
+      hasSecretKey: !!config.secretKey,
+      hasMerchantId: !!config.merchantId,
+      environment: config.environment
+    });
+    
     if (!config.apiKey || !config.secretKey) {
       return {
         statusCode: 500,
@@ -54,10 +61,22 @@ exports.handler = async (event, context) => {
       amount: amount, // en centavos
       currency: currency || 'PEN',
       orderId: orderId,
+      formAction: 'PAYMENT',
       customer: {
-        email: customer.email
-      }
-      // Payload simplificado según documentación oficial de Izipay
+        email: customer.email,
+        firstName: customer.firstName || 'Cliente',
+        lastName: customer.lastName || 'JurisCalc'
+      },
+      paymentMethods: paymentMethods || ['BANK_TRANSFER'],
+      returnUrl: config.returnUrl || `${process.env.URL}/payment-success`,
+      cancelUrl: config.cancelUrl || `${process.env.URL}/payment-cancel`,
+      webhookUrl: config.webhookUrl || `${process.env.URL}/.netlify/functions/webhook`,
+      merchantId: config.merchantId,
+      mode: config.environment === 'production' ? 'PRODUCTION' : 'TEST',
+      description: `Acceso JurisCalc - ${orderId}`,
+      captureMode: 'AUTHOR_CAPTURE',
+      paymentSource: 'EC',
+      contractNumber: '0000001'
     };
 
     // Generar firma de seguridad
@@ -75,6 +94,12 @@ exports.handler = async (event, context) => {
     
 
     // Llamar a la API real de Izipay
+    console.log('🚀 DEBUG: Llamando a Izipay...', {
+      url: `${config.baseUrl}/api-payment/V4/Charge/CreatePayment`,
+      orderId: orderId,
+      amount: amount
+    });
+    
     const response = await axios.post(
       `${config.baseUrl}/api-payment/V4/Charge/CreatePayment`,
       paymentPayload,
