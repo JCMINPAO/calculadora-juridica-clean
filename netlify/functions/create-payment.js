@@ -1,6 +1,6 @@
 const axios = require('axios');
 const crypto = require('crypto');
-const config = require('./izipay-config');
+const config = require('./izipay-credentials');
 
 exports.handler = async (event, context) => {
   
