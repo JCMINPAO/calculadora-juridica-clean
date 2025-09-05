@@ -281,6 +281,11 @@
 
         // Mostrar mensaje de confirmación
         console.log('Pago exitoso procesado');
+
+        // Redireccionar automáticamente a la página principal después de 3 segundos
+        setTimeout(() => {
+            window.location.href = '/?payment=success';
+        }, 3000);
     </script>
 </body>
 </html>

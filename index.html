@@ -2330,8 +2330,138 @@
                     opacity: 1;
                 }
             }
+            
+            /* Modal de éxito de pago */
+            .payment-success-modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                backdrop-filter: blur(5px);
+            }
+            
+            .payment-success-content {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                border-radius: 20px;
+                padding: 2rem;
+                text-align: center;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+                max-width: 500px;
+                width: 90%;
+                animation: modalSlideIn 0.5s ease-out;
+            }
+            
+            @keyframes modalSlideIn {
+                from {
+                    opacity: 0;
+                    transform: translate(-50%, -60%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate(-50%, -50%);
+                }
+            }
+            
+            .payment-success-icon {
+                font-size: 4rem;
+                color: #10b981;
+                margin-bottom: 1rem;
+                animation: bounce 2s infinite;
+            }
+            
+            .payment-success-title {
+                font-size: 1.8rem;
+                font-weight: 700;
+                color: #1f2937;
+                margin-bottom: 1rem;
+            }
+            
+            .payment-success-message {
+                color: #6b7280;
+                margin-bottom: 1.5rem;
+                line-height: 1.6;
+            }
+            
+            .payment-success-close {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: white;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+            
+            .payment-success-close:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            }
         `;
         document.head.appendChild(style);
+
+        // Función para mostrar modal de éxito de pago
+        function showPaymentSuccessModal(transactionData) {
+            const modal = document.createElement('div');
+            modal.className = 'payment-success-modal';
+            modal.innerHTML = `
+                <div class="payment-success-content">
+                    <div class="payment-success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2 class="payment-success-title">¡Pago Exitoso!</h2>
+                    <p class="payment-success-message">
+                        Tu pago ha sido procesado correctamente.<br>
+                        Gracias por tu compra.
+                    </p>
+                    <button class="payment-success-close" onclick="closePaymentSuccessModal()">
+                        <i class="fas fa-check"></i> Continuar
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            modal.style.display = 'block';
+            
+            // Auto-cerrar después de 5 segundos
+            setTimeout(() => {
+                closePaymentSuccessModal();
+            }, 5000);
+        }
+        
+        function closePaymentSuccessModal() {
+            const modal = document.querySelector('.payment-success-modal');
+            if (modal) {
+                modal.style.display = 'none';
+                setTimeout(() => {
+                    modal.remove();
+                }, 300);
+            }
+        }
+
+        // Verificar si venimos de un pago exitoso
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('payment') === 'success') {
+            // Limpiar carrito
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cartTotal');
+            cart = [];
+            updateCartDisplay();
+            
+            // Mostrar modal de éxito
+            showPaymentSuccessModal();
+            
+            // Limpiar URL
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
 
 
     </script>
