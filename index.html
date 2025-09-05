@@ -2067,8 +2067,8 @@
             const script = document.createElement('script');
             script.src = 'https://static.micuentaweb.pe/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js';
             // Obtener la clave pública dinámicamente para evitar detección de secretos
-            // Usar la clave pública correcta de tu cuenta de Izipay
-            script.setAttribute('kr-public-key', '34847543:FYQX5NNs0SzBGpNl');
+            // Usar solo la clave pública (sin Merchant ID)
+            script.setAttribute('kr-public-key', 'FYQX5NNs0SzBGpNl');
             script.setAttribute('kr-post-url-success', window.location.origin + '/?payment=success');
             document.head.appendChild(script);
         }
