@@ -1770,10 +1770,10 @@
                 
                 if (data.status === 'success' && data.formToken) {
                     // Mostrar notificación de éxito
-                    showNotification('Formulario de pago generado correctamente', 'success');
+                    showNotification('Redirigiendo a Izipay...', 'success');
                     
-                    // Mostrar el formulario de pago de Izipay
-                    showIzipayPaymentForm(data.formToken);
+                    // Redirigir directamente a Izipay (formulario de redirección)
+                    window.location.href = data.paymentUrl || 'https://api.micuentaweb.pe/vads-payment/';
                     
                 } else if (data.status === 'success' && data.paymentUrl) {
                     // Fallback para URL de pago (redirección)
@@ -2067,8 +2067,18 @@
             const script = document.createElement('script');
             script.src = 'https://static.micuentaweb.pe/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js';
             // Obtener la clave pública dinámicamente para evitar detección de secretos
-            // Usar solo la clave pública (sin Merchant ID)
-            script.setAttribute('kr-public-key', 'FYQX5NNs0SzBGpNl');
+            // Obtener la clave pública dinámicamente desde el backend
+            getIzipayPublicKey().then(publicKey => {
+                script.setAttribute('kr-public-key', publicKey);
+                script.setAttribute('kr-post-url-success', window.location.origin + '/?payment=success');
+                document.head.appendChild(script);
+            }).catch(error => {
+                console.error('Error cargando clave pública:', error);
+                // Fallback a la clave pública de prueba
+                script.setAttribute('kr-public-key', '34847543:testpublickey_TxzPjl9xKlhM0a6tfSVNilcLTOUZ0ndsTogGTByPUATcE');
+                script.setAttribute('kr-post-url-success', window.location.origin + '/?payment=success');
+                document.head.appendChild(script);
+            });
             script.setAttribute('kr-post-url-success', window.location.origin + '/?payment=success');
             document.head.appendChild(script);
         }
