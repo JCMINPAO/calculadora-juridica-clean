@@ -5,7 +5,7 @@ exports.handler = async (event, context) => {
         // Configuración de Izipay para el frontend
         const merchantId = process.env.IZIPAY_MERCHANT_ID || '34847543';
         const config = {
-            publicKey: merchantId + ':testpublickey_TxzPjl9xKlhM0a6tfSVNilcLTOUZ0ndsTogGTByPUATcE',
+            publicKey: '34847543:testpublickey_PkfA3boGXiUCH2i3xkcUwkQYdLTtjKEGoe83CACn0ghyp',
             environment: process.env.IZIPAY_ENVIRONMENT || 'TEST',
             baseUrl: process.env.IZIPAY_BASE_URL || 'https://api.micuentaweb.pe'
         };
@@ -25,7 +25,7 @@ exports.handler = async (event, context) => {
         
         // Fallback con valores por defecto
         const fallbackConfig = {
-            publicKey: '34847543:testpublickey_TxzPjl9xKlhM0a6tfSVNilcLTOUZ0ndsTogGTByPUATcE',
+            publicKey: '34847543:testpublickey_PkfA3boGXiUCH2i3xkcUwkQYdLTtjKEGoe83CACn0ghyp',
             environment: 'TEST',
             baseUrl: 'https://api.micuentaweb.pe'
         };
