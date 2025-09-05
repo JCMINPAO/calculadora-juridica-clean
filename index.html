@@ -2067,18 +2067,10 @@
             const script = document.createElement('script');
             script.src = 'https://static.micuentaweb.pe/static/js/krypton-client/V4.0/stable/kr-payment-form.min.js';
             // Obtener la clave pública dinámicamente para evitar detección de secretos
-            // Obtener la clave pública dinámicamente desde el backend
-            getIzipayPublicKey().then(publicKey => {
-                script.setAttribute('kr-public-key', publicKey);
-                script.setAttribute('kr-post-url-success', window.location.origin + '/?payment=success');
-                document.head.appendChild(script);
-            }).catch(error => {
-                console.error('Error cargando clave pública:', error);
-                // Fallback a la clave pública de prueba
-                script.setAttribute('kr-public-key', '34847543:testpublickey_TxzPjl9xKlhM0a6tfSVNilcLTOUZ0ndsTogGTByPUATcE');
-                script.setAttribute('kr-post-url-success', window.location.origin + '/?payment=success');
-                document.head.appendChild(script);
-            });
+            // Usar la clave pública correcta de Izipay
+            script.setAttribute('kr-public-key', '39349064:testpublickey_QzAtzkMaFr9eR2IqReQQsQNnGEZbef3YqNbyNPKyT6xAn');
+            script.setAttribute('kr-post-url-success', window.location.origin + '/?payment=success');
+            document.head.appendChild(script);
             script.setAttribute('kr-post-url-success', window.location.origin + '/?payment=success');
             document.head.appendChild(script);
         }
