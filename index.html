@@ -1770,10 +1770,10 @@
                 
                 if (data.status === 'success' && data.formToken) {
                     // Mostrar notificación de éxito
-                    showNotification('Redirigiendo a Izipay...', 'success');
+                    showNotification('Formulario de pago generado correctamente', 'success');
                     
-                    // Redirigir directamente a Izipay (formulario de redirección)
-                    window.location.href = data.paymentUrl || 'https://api.micuentaweb.pe/vads-payment/';
+                    // Mostrar el formulario de pago de Izipay
+                    showIzipayPaymentForm(data.formToken);
                     
                 } else if (data.status === 'success' && data.paymentUrl) {
                     // Fallback para URL de pago (redirección)
