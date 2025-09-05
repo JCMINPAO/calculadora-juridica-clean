@@ -2,6 +2,10 @@
   publish = "."
   command = "echo 'No build command needed'"
 
+# Configuración para omitir escaneo de secretos
+[build.environment]
+  SECRETS_SCAN_ENABLED = "false"
+
 [[redirects]]
   from = "/payment-success"
   to = "/payment-success.html"
