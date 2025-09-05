@@ -6,7 +6,7 @@ module.exports = {
     merchantId: process.env.IZIPAY_MERCHANT_ID || '34847543',
     environment: process.env.IZIPAY_ENVIRONMENT || 'TEST',
     baseUrl: process.env.IZIPAY_BASE_URL || 'https://api.micuentaweb.pe',
-    returnUrl: process.env.IZIPAY_RETURN_URL || 'https://polite-belekoy-971f16.netlify.app/payment-success',
+    returnUrl: process.env.IZIPAY_RETURN_URL || 'https://polite-belekoy-971f16.netlify.app/',
     cancelUrl: process.env.IZIPAY_CANCEL_URL || 'https://polite-belekoy-971f16.netlify.app/payment-cancel',
     webhookUrl: process.env.IZIPAY_WEBHOOK_URL || 'https://polite-belekoy-971f16.netlify.app/.netlify/functions/webhook'
 };
